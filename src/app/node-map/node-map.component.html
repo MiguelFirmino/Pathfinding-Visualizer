@@ -1,0 +1,11 @@
+<h3>This is the node map:</h3>
+
+<div ngClass="node-map">
+    <app-node *ngFor="let node of nodeMap" 
+    [node]="node"
+    ngClass="node"
+    [style.--map-width]="mapWidth"
+    [style.--map-height]="mapHeight">
+    
+    </app-node>
+</div>
