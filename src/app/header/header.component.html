@@ -1,0 +1,3 @@
+<button (click)="sendMapSize()">Generate Map</button>
+<input (keyup)="setWidth($event)" value={{width}} type="number" min="1" max="200" #widthInput>X
+<input (keyup)="setHeight($event)" value={{height}} type="number" min="1" max="200" #heightInput>Y

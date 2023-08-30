@@ -1,0 +1,25 @@
+.node-map {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: tomato;
+    --parent-width: 25rem;
+    --parent-height: 25rem;
+    width: 25rem;
+    height: 25rem;
+}
+
+.node-map .node {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    text-align: center;
+    width: calc(var(--parent-width) / var(--map-width));
+    height: calc(var(--parent-height) / var(--map-height));
+}
+
+.node-map .node:hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}
