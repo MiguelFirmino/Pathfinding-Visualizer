@@ -1,8 +1,8 @@
 .node-map {
+    margin: 0 auto;
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    background-color: tomato;
     --parent-width: 25rem;
     --parent-height: 25rem;
     width: 25rem;
@@ -10,13 +10,11 @@
 }
 
 .node-map .node {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     user-select: none;
     text-align: center;
     width: calc(var(--parent-width) / var(--map-width));
     height: calc(var(--parent-height) / var(--map-height));
+    transition: transform 0.15s ease-in-out;
 }
 
 .node-map .node:hover {

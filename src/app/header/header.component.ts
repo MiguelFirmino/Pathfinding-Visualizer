@@ -18,6 +18,11 @@ export class HeaderComponent {
 
   sendMapSize = () => {
     console.log(`(from header) sent height:${this.width}, width:${this.height}`)
-    this.nodeMapComponent.setSize(this.width, this.height);
+    this.nodeMapComponent.setMapSize(this.width, this.height);
+  }
+
+  sendNodeFunction = (type: string) => {
+    console.log(`(from header) sent function:${type}`)
+    this.nodeMapComponent.setNodeFunction(type);
   }
 }
