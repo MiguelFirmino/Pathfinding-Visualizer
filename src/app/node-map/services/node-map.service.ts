@@ -5,12 +5,33 @@ import { Node } from '../../node/node';
   providedIn: 'root'
 })
 export class NodeMapService {
-  generateMap = (width: number, height: number) => {
-    let map = [];
+  generateMap = (mapWidth: number, mapHeight: number) => {
+    let map: Node[] = [];
 
-    for (let i = 0; i < height; i++) {
-      map.push(...this.generateRow(width, i));
+    // generate nodes
+    for (let i = 0; i < mapHeight; i++) {
+      map.push(...this.generateRow(mapWidth, i));
     } 
+
+    // assings neighbours for each node IMPLEMENT DISTANCE IF NEEDED
+    for (let [index, node] of map.entries()) {
+      let newNeighbours: Node[] = [];
+
+      if (node.xPosition + 1 < mapWidth) {
+        newNeighbours.push(map[index + 1]); // index + 1 reaches the neighbour to the right
+      }
+      if (node.xPosition - 1 >= 0) {
+        newNeighbours.push(map[index - 1]); // index - 1 reaches the neighbour to the left
+      }
+      if (node.yPosition + 1 < mapHeight) {
+        newNeighbours.push(map[index + mapWidth]); // index + mapwidth reaches the neighbour below 
+      }
+      if (node.yPosition - 1 >= 0) {
+        newNeighbours.push(map[index - mapWidth]);  // index + mapwidth reaches the neighbour above
+      }
+
+      node.neighbours = newNeighbours;
+    }
 
     return map;
   }
@@ -26,8 +47,7 @@ export class NodeMapService {
         wasVisited: false,
         isBlocked: false,
         xPosition: xCoord,
-        yPosition: yCoord,
-        // neighbours: Node[], --IMPLEMENT
+        yPosition: yCoord
       }
 
       row.push(newNode);

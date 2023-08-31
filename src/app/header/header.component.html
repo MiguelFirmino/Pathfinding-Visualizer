@@ -1,3 +1,35 @@
-<button (click)="sendMapSize()">Generate Map</button>
-<input (keyup)="setWidth($event)" value={{width}} type="number" min="1" max="200" #widthInput>X
-<input (keyup)="setHeight($event)" value={{height}} type="number" min="1" max="200" #heightInput>Y
+<div>
+    <button (click)="sendNodeFunction('block')">Block Nodes</button>
+    <button (click)="sendNodeFunction('start')">Set Starting Node</button>
+    <button (click)="sendNodeFunction('end')">Set Ending Node</button>
+    <button (click)="sendMapSize()">Generate Map</button>
+    <input (keyup)="setWidth($event)" value={{width}} type="number" min="1" max="200" #widthInput>X
+    <input (keyup)="setHeight($event)" value={{height}} type="number" min="1" max="200" #heightInput>Y
+</div>
+
+<ul ngClass="legend-list">
+    <li>
+        <div ngClass="legend-item"></div>
+        Blank Node
+    </li>
+    <li>
+        <div ngClass="legend-item" style="background-color: #444444;"></div>
+        Blocked Node
+    </li>
+    <li>
+        <div ngClass="legend-item" style="background-color: #ff00ff;"></div>
+        Visited Node
+    </li>
+    <li>
+        <div ngClass="legend-item" style="background-color: blue;"></div>
+        Start Node
+    </li>
+    <li>
+        <div ngClass="legend-item" style="background-color: red;"></div>
+        End Node
+    </li>
+    <li>
+        <div ngClass="legend-item" style="background-color: #ff00ff;"></div>
+        Path
+    </li>
+</ul>

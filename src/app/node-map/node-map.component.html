@@ -1,11 +1,13 @@
-<h3>This is the node map:</h3>
-
+<hr>
 <div ngClass="node-map">
     <app-node *ngFor="let node of nodeMap" 
     [node]="node"
+    [isStartingNode]="node == startingNode ? true : false"
+    [isEndingNode]="node == endingNode ? true : false"
     ngClass="node"
     [style.--map-width]="mapWidth"
-    [style.--map-height]="mapHeight">
+    [style.--map-height]="mapHeight"
+    (nodeEvent)="receiveClickedNode($event)">
     
     </app-node>
 </div>

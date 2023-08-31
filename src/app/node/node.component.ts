@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Node } from './node';
 
 @Component({
@@ -7,7 +7,11 @@ import { Node } from './node';
   styleUrls: ['./node.component.scss']
 })
 export class NodeComponent implements OnInit {
-  @Input() node!: Node;
+  @Input() node: Node;
+  @Input() isStartingNode: boolean;
+  @Input() isEndingNode: boolean;
+
+  @Output() nodeEvent = new EventEmitter<Node>;
 
   constructor() { }
 
@@ -15,7 +19,21 @@ export class NodeComponent implements OnInit {
     // console.log("A node was initialized");
   }
 
-  logClick() {
-    console.log(`A node was clicked at ${this.node.xPosition}, ${this.node.yPosition}`);
+  sendClickedNode() {
+    // Emits this node to parent element 'node-map'
+    console.log(`Node at ${this.node.xPosition}, ${this.node.yPosition} has been clicked`);
+    this.nodeEvent.emit(this.node);
+  }
+  
+  styleNode() {
+    if (this.node.isBlocked) {
+      return { backgroundColor : '#444444' };
+    } else if (this.isStartingNode) {
+      return { backgroundColor : 'blue' };
+    } else if (this.isEndingNode) {
+      return { backgroundColor : 'red' };
+    } else {
+      return { backgroundColor : 'white' };
+    }
   }
 }

@@ -1,0 +1,13 @@
+.legend-list {
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+}
+
+.legend-list .legend-item {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 1px solid black;
+}
