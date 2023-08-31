@@ -1,4 +1,6 @@
 <div>
+    <button (click)="sendAlgorithmStart()">Start Algorithm</button>
+    <button (click)="sendNodeFunction('test')">Test Nodes</button>
     <button (click)="sendNodeFunction('block')">Block Nodes</button>
     <button (click)="sendNodeFunction('start')">Set Starting Node</button>
     <button (click)="sendNodeFunction('end')">Set Ending Node</button>
@@ -17,7 +19,7 @@
         Blocked Node
     </li>
     <li>
-        <div ngClass="legend-item" style="background-color: #ff00ff;"></div>
+        <div ngClass="legend-item" style="background-color: yellow;"></div>
         Visited Node
     </li>
     <li>
@@ -29,7 +31,7 @@
         End Node
     </li>
     <li>
-        <div ngClass="legend-item" style="background-color: #ff00ff;"></div>
+        <div ngClass="legend-item" style="background-color: orange"></div>
         Path
     </li>
 </ul>
