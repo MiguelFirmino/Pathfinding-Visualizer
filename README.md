@@ -1,4 +1,4 @@
-# Pathfinding Visualizer
+# Pathfinding Visualizer🏴
 
 A pathfinding algorithm visualizer built on Angular. With this project, my goal is to majorly improve my skills and knowledge on Angular. 
 Not only that, but I aim to completely overhaul my former <a href="https://github.com/MiguelFirmino/Dijkstra-Visualizer/tree/master">Dijkstra Visualizer</a> 
