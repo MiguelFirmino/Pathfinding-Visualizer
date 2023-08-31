@@ -13,8 +13,8 @@ export class HeaderComponent {
   width: number = 10;
   height: number = 10;
 
-  setWidth = (event: any) => { this.width = event.target.value; }
-  setHeight = (event: any) => { this.height = event.target.value; }
+  setWidth = (event: any) => { this.width = parseInt(event.target.value); }
+  setHeight = (event: any) => { this.height = parseInt(event.target.value); }
 
   sendMapSize = () => {
     console.log(`(from header) sent height:${this.width}, width:${this.height}`)
@@ -24,5 +24,10 @@ export class HeaderComponent {
   sendNodeFunction = (type: string) => {
     console.log(`(from header) sent function:${type}`)
     this.nodeMapComponent.setNodeFunction(type);
+  }
+
+  sendAlgorithmStart = () => {
+    console.log(`(from header) sent request to start algorithm`);
+    this.nodeMapComponent.doAlgorithmIteration();
   }
 }

@@ -1,25 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NodeMapService } from './services/node-map.service';
+import { AlgorithmService } from './services/algorithm.service';
 
 @Component({
   selector: 'app-node-map',
   templateUrl: './node-map.component.html',
   styleUrls: ['./node-map.component.scss']
 })
-export class NodeMapComponent {
+export class NodeMapComponent implements OnInit {
 
-  constructor (private nodeMapService: NodeMapService) { }  
+  constructor (private nodeMapService: NodeMapService, private algorithmService: AlgorithmService) { }  
 
-   // Standard configs
+  // Standard configs
   mapWidth: number = 10;
   mapHeight: number = 10;
   nodeMap = this.nodeMapService.generateMap(this.mapWidth, this.mapHeight);
   startingNode = this.nodeMap[0];
   endingNode = this.nodeMap[99];
-
-  nodeFunction = this.blockNode;
+  nodeFunction: any;
   
-  setMapSize(newWidth: number, newHeight: number) {
+  setMapSize = (newWidth: number, newHeight: number) => {
     console.log("(from node-map) received map size");
     this.startingNode = undefined;
     this.endingNode = undefined;
@@ -28,9 +28,12 @@ export class NodeMapComponent {
     this.nodeMap = this.nodeMapService.generateMap(this.mapWidth, this.mapHeight);
   }
 
-  setNodeFunction(type: string) {
+  setNodeFunction = (type: string) => {
     console.log("(from node-map) received node function");
     switch(type) {
+      case 'test':
+        this.nodeFunction = this.testFunction;
+        break;
       case 'block':
         this.nodeFunction = this.blockNode;
         break;
@@ -43,7 +46,7 @@ export class NodeMapComponent {
     }
   }
 
-  blockNode(node) {
+  blockNode = (node) => {
     if (node !== this.startingNode && node !== this.endingNode) {
       console.log(`Node at ${node.xPosition}, ${node.yPosition} is blocked: ${!node.isBlocked}`);
       node.isBlocked = !node.isBlocked;
@@ -61,7 +64,7 @@ export class NodeMapComponent {
     // }
   }
 
-  setStartingNode(node) {
+  setStartingNode = (node) => {
     if (node != this.endingNode) {
       console.log(`Node at ${node.xPosition}, ${node.yPosition} is now starting Node`);
       this.startingNode = node;
@@ -71,7 +74,7 @@ export class NodeMapComponent {
     }
   }
 
-  setEndingNode(node) {
+  setEndingNode = (node) => {
     if (node != this.startingNode) {
       console.log(`Node at ${node.xPosition}, ${node.yPosition} is now ending Node`);
       this.endingNode = node;
@@ -81,9 +84,31 @@ export class NodeMapComponent {
     }
   }
 
-  receiveClickedNode($event) {
+  receiveClickedNode = ($event) => {
     let clickedNode = $event;
 
     this.nodeFunction(clickedNode);
+  }
+
+  doAlgorithmIteration = () => {
+    this.algorithmService.setAlgorithmValues(this.startingNode, this.endingNode);
+    setInterval(() => this.algorithmService.doIteration(), 10);
+  }
+
+  testFunction = (node) => {
+    console.log(`Node at ${node.xPosition}, ${node.yPosition} has been clicked`);
+
+    // test for checking neighbours
+    // for (let neighbour of node.neighbours) {
+    //   if (neighbour) {
+    //     console.log(`Neighbour at ${neighbour.xPosition}, ${neighbour.yPosition}`);
+    //   } else {
+    //     console.log('Undefined Neighbour');
+    //   }
+    // }
+  }
+
+  ngOnInit(): void {
+    this.nodeFunction = this.testFunction;
   }
 }

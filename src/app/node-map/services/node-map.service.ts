@@ -18,16 +18,16 @@ export class NodeMapService {
       let newNeighbours: Node[] = [];
 
       if (node.xPosition + 1 < mapWidth) {
-        newNeighbours.push(map[index + 1]); // index + 1 reaches the neighbour to the right
+        newNeighbours.push(map[index + 1]); // index + 1 reaches the neighbour to the right on the grid
       }
       if (node.xPosition - 1 >= 0) {
-        newNeighbours.push(map[index - 1]); // index - 1 reaches the neighbour to the left
+        newNeighbours.push(map[index - 1]); // index - 1 reaches the neighbour to the left on the grid
       }
       if (node.yPosition + 1 < mapHeight) {
-        newNeighbours.push(map[index + mapWidth]); // index + mapwidth reaches the neighbour below 
+        newNeighbours.push(map[index + mapWidth]); // index + mapwidth reaches the neighbour below on the grid
       }
       if (node.yPosition - 1 >= 0) {
-        newNeighbours.push(map[index - mapWidth]);  // index + mapwidth reaches the neighbour above
+        newNeighbours.push(map[index - mapWidth]);  // index + mapwidth reaches the neighbour above on the grid
       }
 
       node.neighbours = newNeighbours;
