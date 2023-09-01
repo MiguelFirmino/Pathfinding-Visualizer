@@ -52,7 +52,7 @@ export class AlgorithmService {
   getUnvisitedNeighbours = (node: Node) => {
     let nodeNeighbours = node.neighbours
 
-    return [...nodeNeighbours.filter((item) => !item.isBlocked && !item.wasVisited)];
+    return [...nodeNeighbours.filter((neighbour) => !neighbour.node.isBlocked && !neighbour.node.wasVisited)];
   }
 
   // add all adjacent nodes that haven't been visited to unvisitedNodes list
@@ -60,9 +60,9 @@ export class AlgorithmService {
   visitNode = (nodeToVisit: Node) => {
     let unvisitedNeighbours = this.getUnvisitedNeighbours(nodeToVisit);
 
-    let potentialDistance = nodeToVisit.distance + 1; // rethink this for adding diagonals
+    for (let { node: neighbour, relativeDistance } of unvisitedNeighbours) {
+      let potentialDistance = nodeToVisit.distance + relativeDistance;
 
-    for (let neighbour of unvisitedNeighbours) {
       if (neighbour.distance > potentialDistance) {
         neighbour.distance = potentialDistance;
         neighbour.parent = nodeToVisit;

@@ -90,22 +90,23 @@ export class NodeMapComponent implements OnInit {
     this.nodeFunction(clickedNode);
   }
 
+  // temporary start function
   doAlgorithmIteration = () => {
     this.algorithmService.setAlgorithmValues(this.startingNode, this.endingNode);
-    setInterval(() => this.algorithmService.doIteration(), 10);
+    setInterval(() => this.algorithmService.doIteration(), 50);
   }
 
   testFunction = (node) => {
-    console.log(`Node at ${node.xPosition}, ${node.yPosition} has been clicked`);
+    // console.log(`Node at ${node.xPosition}, ${node.yPosition} has been clicked`);
 
     // test for checking neighbours
-    // for (let neighbour of node.neighbours) {
-    //   if (neighbour) {
-    //     console.log(`Neighbour at ${neighbour.xPosition}, ${neighbour.yPosition}`);
-    //   } else {
-    //     console.log('Undefined Neighbour');
-    //   }
-    // }
+    for (let { node: neighbour, potentialDistance } of node.neighbours) {
+      if (neighbour) {
+        console.log(`Neighbour at ${neighbour.xPosition}, ${neighbour.yPosition}`);
+      } else {
+        console.log('Undefined Neighbour');
+      }
+    }
   }
 
   ngOnInit(): void {
