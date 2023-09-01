@@ -11,10 +11,11 @@ project to a better, optimized, more professional version by applying Angular's 
 2) create service for actual pathfinding algorithm!
 3) created service for generating node-map.
 4) configured rendering and basic styling for node-map's nodes.
-5) configure logic for node.neighbour attribute.
-6) improve visualization of nodes by the use of colors/descriptions.
-7) add caption/legend for each color on the screen.
+5) add caption/legend for each color on the screen.
+6) added diagonals!
 
 🚩 To do: 🚩
-1) add boostrap css styling.
-2) many more!
+1) implement start conditions.
+2) implement stop and reset button.
+3) add boostrap css styling.
+4) many more!
