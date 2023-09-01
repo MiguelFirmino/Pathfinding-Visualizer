@@ -1,7 +1,7 @@
 export interface Node {
     weight: number;
     parent: undefined | Node;
-    neighbours?: Node[];
+    neighbours?: Array<{ node: Node, relativeDistance: number }>;
     distance: number;
     wasVisited: boolean;
     isPath?: boolean;
