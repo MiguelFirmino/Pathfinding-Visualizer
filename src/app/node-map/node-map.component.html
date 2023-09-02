@@ -1,9 +1,11 @@
 <hr>
+<h3> {{ message }}</h3>
 <div ngClass="node-map">
-    <app-node *ngFor="let node of nodeMap" 
+    <app-node *ngFor="let node of nodeMap"
     [node]="node"
     [isStartingNode]="node == startingNode ? true : false"
     [isEndingNode]="node == endingNode ? true : false"
+    [isPathNode]="nodePath.includes(node)"
     ngClass="node"
     [style.--map-width]="mapWidth"
     [style.--map-height]="mapHeight"

@@ -1,37 +1,39 @@
 import { Injectable } from '@angular/core';
-import { Node } from '../../node/node';
+import { Node } from '../../../node/node';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AlgorithmService {
+export class DijkstraService {
 
   constructor() { }
 
   startingNode: Node;
   endingNode: Node;
   unvisitedNodes: Node[];
+  currentNode: Node;
+  iterationCount: number = 0;
 
-  doIteration = () => {
+  doIteration = (): undefined | Node => {
     let [index, closestNode] = this.getClosestNode();
+    this.currentNode = closestNode;
 
     // algorithm is done when it reaches ending node
-    if (closestNode !== this.endingNode) {
+    if (!this.checkIfDone().isDone) {
       this.visitNode(closestNode);
       this.unvisitedNodes.splice(index, 1);
-    } else {
-      let path = this.tracePath(closestNode);
-      for (let node of path) {
-        node.isPath = true;
-      }
     } 
+
+    this.iterationCount += 1;
+    return closestNode;
   }
 
   setAlgorithmValues = (start: Node, end: Node) => {
     this.startingNode = start;
-    this.startingNode.distance = 0;
+    this.startingNode.pathDistance = 0;
     this.endingNode = end;
     this.unvisitedNodes = [this.startingNode];
+    this.iterationCount = 0;
   }
 
   // get node of least distance
@@ -40,7 +42,7 @@ export class AlgorithmService {
     let closestNodeIndex = undefined;
 
     for (let [index, node] of this.unvisitedNodes.entries()) {
-      if (node.distance < closestNode.distance) {
+      if (node.pathDistance < closestNode.pathDistance) {
           closestNode = node;
           closestNodeIndex = index;
       }
@@ -52,7 +54,7 @@ export class AlgorithmService {
   getUnvisitedNeighbours = (node: Node) => {
     let nodeNeighbours = node.neighbours
 
-    return [...nodeNeighbours.filter((neighbour) => !neighbour.node.isBlocked && !neighbour.node.wasVisited)];
+    return [...nodeNeighbours.filter((neighbour) => !neighbour.node.isBlocked && !neighbour.node.isVisited)];
   }
 
   // add all adjacent nodes that haven't been visited to unvisitedNodes list
@@ -61,29 +63,41 @@ export class AlgorithmService {
     let unvisitedNeighbours = this.getUnvisitedNeighbours(nodeToVisit);
 
     for (let { node: neighbour, relativeDistance } of unvisitedNeighbours) {
-      let potentialDistance = nodeToVisit.distance + relativeDistance;
+      let potentialDistance = nodeToVisit.pathDistance + relativeDistance;
 
-      if (neighbour.distance > potentialDistance) {
-        neighbour.distance = potentialDistance;
+      if (neighbour.pathDistance > potentialDistance) {
+        neighbour.pathDistance = potentialDistance;
         neighbour.parent = nodeToVisit;
-        this.unvisitedNodes.push(neighbour);
+
+        if (!this.unvisitedNodes.includes(neighbour)) {
+          this.unvisitedNodes.push(neighbour);
+          neighbour.isProspected = true;
+        }
       }
     }
 
     if (nodeToVisit !== this.startingNode) {
-      nodeToVisit.wasVisited = true;
+      nodeToVisit.isVisited = true;
+    }
+  }
+
+  checkIfDone = (): { isDone: boolean, reason?: string } => {
+    if (this.currentNode === this.endingNode) {
+      return { isDone: true, reason: 'reached end' };
+    } else if (this.unvisitedNodes.length == 0) {
+      return { isDone: true, reason: 'no solution' };
+    } else {
+      return { isDone: false };
     }
   }
 
   // get list of nodes whose parents trace to selected node
   tracePath = (nodeToTrace: Node) => {
-    let pathNodes = []
+    let pathNodes = [nodeToTrace];
 
-    let pathStart = nodeToTrace;
-
-    while (pathStart.parent != this.startingNode) {
-        pathStart = pathStart.parent;
-        pathNodes.push(pathStart);
+    while (nodeToTrace.parent) {
+      nodeToTrace = nodeToTrace.parent;
+      pathNodes.push(nodeToTrace);
     }
 
     return pathNodes;
