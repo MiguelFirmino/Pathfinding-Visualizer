@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NodeMapComponent } from '../node-map/node-map.component';
 
 @Component({
@@ -6,28 +6,75 @@ import { NodeMapComponent } from '../node-map/node-map.component';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   
   @Input() nodeMapComponent: NodeMapComponent;
 
-  width: number = 10;
-  height: number = 10;
+  width: number;
+  height: number;
+  algorithmButtonText: string;
+  algorithmButtonFunction: any;
+  algorithmDelay: number;
 
   setWidth = (event: any) => { this.width = parseInt(event.target.value); }
   setHeight = (event: any) => { this.height = parseInt(event.target.value); }
 
-  sendMapSize = () => {
+  sendMapSize = (): void => {
     console.log(`(from header) sent height:${this.width}, width:${this.height}`)
     this.nodeMapComponent.setMapSize(this.width, this.height);
   }
 
-  sendNodeFunction = (type: string) => {
+  sendClearMap = (): void => {
+    console.log('(from header) sent map clear message');
+    this.nodeMapComponent.clearMap();
+  }
+
+  sendNodeFunction = (type: string): void => {
     console.log(`(from header) sent function:${type}`)
     this.nodeMapComponent.setNodeFunction(type);
   }
 
-  sendAlgorithmStart = () => {
-    console.log(`(from header) sent request to start algorithm`);
-    this.nodeMapComponent.doAlgorithmIteration();
+  sendAlgorithmStart = (): void => {
+    console.log('(from header) sent request to start algorithm');
+    this.nodeMapComponent.startAlgorithm();
+
+    this.algorithmButtonText = "Stop Algorithm";
+    this.algorithmButtonFunction = this.sendAlgorithmStop;
+  }
+
+  sendAlgorithmStop = (): void => {
+    console.log('(from header) sent request to stop algorithm');
+    this.nodeMapComponent.stopAlgorithm();
+    
+    this.algorithmButtonText = "Resume Algorithm";
+    this.algorithmButtonFunction = this.sendAlgorithmResume;
+  }  
+
+  sendAlgorithmResume = (): void => {
+    console.log('(from header) sent request to resume algorithm');
+    this.nodeMapComponent.resumeAlgorithm();
+
+    this.algorithmButtonText = "Stop Algorithm";
+    this.algorithmButtonFunction = this.sendAlgorithmStop;
+  }
+
+  sendDelayChange = (event: any): void => {
+    let newDelay = parseInt(event.target.value);
+    console.log(`(from header) sent request to change delay to ${newDelay}`);
+
+    this.nodeMapComponent.changeAlgorithmDelay(newDelay);
+  }
+  
+  resetAlgorithmButton = () => {
+    this.algorithmButtonText = "Restart Algorithm";
+    this.algorithmButtonFunction = this.sendAlgorithmStart;
+  }
+
+  ngOnInit(): void {
+    this.width = 10;
+    this.height = 10;
+    this.algorithmButtonText = "Start Algorithm";
+    this.algorithmButtonFunction = this.sendAlgorithmStart;
+    this.algorithmDelay = 60;
   }
 }

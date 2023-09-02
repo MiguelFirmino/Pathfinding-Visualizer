@@ -1,5 +1,5 @@
 <h1>Hello World!</h1>
 
-<app-header [nodeMapComponent]="nodeMap"></app-header>
+<app-header [nodeMapComponent]="nodeMap" #header></app-header>
 
-<app-node-map #nodeMap></app-node-map>
+<app-node-map [headerComponent]="header" #nodeMap></app-node-map>

@@ -42,23 +42,23 @@ export class NodeMapService {
       }
 
       // diagonal neighbours
-      let diagonalDistace = 1.414; // approximation of sqrt of 2
-      if (isRightAvailable && isBelowAvailable) {
-        let southEastNeighbour = map[index + 1 + mapWidth] // index + 1 + mapWidth reaches the SE neighbour on the grid 
-        newNeighbours.push({ node: southEastNeighbour, relativeDistance: diagonalDistace }); 
-      }
-      if (isRightAvailable && isAboveAvailable) {
-        let northEastNeighbour = map[index + 1 - mapWidth]; // index + 1 - mapWidth reaches the NE neighbour on the grid
-        newNeighbours.push({ node: northEastNeighbour, relativeDistance: diagonalDistace }); 
-      }
-      if (isLeftAvailable && isBelowAvailable) {
-        let southWestNeighbour = map[index - 1 + mapWidth]; // index - 1 + mapWidth reaches the SW neighbour on the grid
-        newNeighbours.push({ node: southWestNeighbour, relativeDistance: diagonalDistace }); 
-      }
-      if (isLeftAvailable && isAboveAvailable) {
-        let northWestNeighbour = map[index - 1 - mapWidth] // index - 1 - mapWidth reaches the NW neighbour on the grid
-        newNeighbours.push({ node: northWestNeighbour, relativeDistance: diagonalDistace });
-      }
+      // let diagonalDistace = 1.414; // approximation of sqrt of 2
+      // if (isRightAvailable && isBelowAvailable) {
+      //   let southEastNeighbour = map[index + 1 + mapWidth] // index + 1 + mapWidth reaches the SE neighbour on the grid 
+      //   newNeighbours.push({ node: southEastNeighbour, relativeDistance: diagonalDistace }); 
+      // }
+      // if (isRightAvailable && isAboveAvailable) {
+      //   let northEastNeighbour = map[index + 1 - mapWidth]; // index + 1 - mapWidth reaches the NE neighbour on the grid
+      //   newNeighbours.push({ node: northEastNeighbour, relativeDistance: diagonalDistace }); 
+      // }
+      // if (isLeftAvailable && isBelowAvailable) {
+      //   let southWestNeighbour = map[index - 1 + mapWidth]; // index - 1 + mapWidth reaches the SW neighbour on the grid
+      //   newNeighbours.push({ node: southWestNeighbour, relativeDistance: diagonalDistace }); 
+      // }
+      // if (isLeftAvailable && isAboveAvailable) {
+      //   let northWestNeighbour = map[index - 1 - mapWidth] // index - 1 - mapWidth reaches the NW neighbour on the grid
+      //   newNeighbours.push({ node: northWestNeighbour, relativeDistance: diagonalDistace });
+      // }
 
       node.neighbours = newNeighbours;
     }
@@ -73,11 +73,13 @@ export class NodeMapService {
       let newNode: Node = {
         weight: 1,
         parent: undefined,
-        distance: Infinity,
-        wasVisited: false,
+        pathDistance: Infinity,
+        heuristicDistance: Infinity,
+        isVisited: false,
         isBlocked: false,
         xPosition: xCoord,
-        yPosition: yCoord
+        yPosition: yCoord,
+        isProspected: false
       }
 
       row.push(newNode);

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AlgorithmService } from './algorithm.service';
+import { DijkstraService } from './dijkstra.service';
 
 describe('AlgorithmService', () => {
-  let service: AlgorithmService;
+  let service: DijkstraService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(AlgorithmService);
+    service = TestBed.inject(DijkstraService);
   });
 
   it('should be created', () => {
