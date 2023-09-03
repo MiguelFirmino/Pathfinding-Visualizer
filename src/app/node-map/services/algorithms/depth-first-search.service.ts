@@ -4,7 +4,7 @@ import { Node } from 'src/app/node/node';
 @Injectable({
   providedIn: 'root'
 })
-export class AStarService {
+export class DepthFirstSearchService {
 
   constructor() { }
 
@@ -12,16 +12,14 @@ export class AStarService {
   endingNode: Node;
   unvisitedNodes: Node[];
   currentNode: Node;
-  heuristicWeight: number = 0.6;
   iterationCount: number = 0;
 
   doIteration = () => {
-    let [index, closestNode] = this.getClosestNode();
-    this.currentNode = closestNode;
+    let mostRecentNode = this.unvisitedNodes.pop();
+    this.currentNode = mostRecentNode;
 
     // algorithm will do iteration regardless of if it's done or not
-    this.visitNode(closestNode);
-    this.unvisitedNodes.splice(index, 1);
+    this.visitNode(mostRecentNode);
 
     this.iterationCount += 1;
   }
@@ -32,21 +30,6 @@ export class AStarService {
     this.endingNode = end;
     this.unvisitedNodes = [this.startingNode];
     this.iterationCount = 0;
-  }
-
-  // get node of least distance
-  getClosestNode = () => {
-    let closestNode = this.unvisitedNodes[0];
-    let closestNodeIndex = undefined;
-
-    for (let [index, node] of this.unvisitedNodes.entries()) {
-      if (node.heuristicDistance < closestNode.heuristicDistance) {
-          closestNode = node;
-          closestNodeIndex = index;
-      }
-    }
-
-    return [closestNodeIndex, closestNode];
   }
 
   getUnvisitedNeighbours = (node: Node) => {
@@ -60,20 +43,12 @@ export class AStarService {
   visitNode = (nodeToVisit: Node) => {
     let unvisitedNeighbours = this.getUnvisitedNeighbours(nodeToVisit);
 
-    for (let { node: neighbour, relativeDistance } of unvisitedNeighbours) {
-      let potentialDistance = nodeToVisit.pathDistance + relativeDistance;
-      let heuristicDistance = Math.abs(neighbour.xPosition - this.endingNode.xPosition)
-       + Math.abs(neighbour.yPosition - this.endingNode.yPosition);
+    for (let { node: neighbour } of unvisitedNeighbours) {
+      neighbour.parent = nodeToVisit;
 
-      if (neighbour.pathDistance > potentialDistance) {
-        neighbour.pathDistance = potentialDistance;
-        neighbour.heuristicDistance = potentialDistance + (heuristicDistance * this.heuristicWeight);
-        neighbour.parent = nodeToVisit;
-
-        if (!this.unvisitedNodes.includes(neighbour)) {
-          this.unvisitedNodes.push(neighbour);
-          neighbour.isProspected = true;
-        }
+      if (!this.unvisitedNodes.includes(neighbour)) {
+        this.unvisitedNodes.push(neighbour);
+        neighbour.isProspected = true;
       }
     }
 
