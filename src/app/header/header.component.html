@@ -9,6 +9,12 @@
     X<input (keyup)="setWidth($event)" value={{width}} type="number" min="1" max="200" #widthInput>
     Y<input (keyup)="setHeight($event)" value={{height}} type="number" min="1" max="200" #heightInput>
     Delay<input (change)="sendDelayChange($event)" type="range" value={{algorithmDelay}} min="20" max="100" />
+    Algorithm<select (change)="sendAlgorithmChange($event)">
+        <option value="dijkstra" selected>Dijkstra</option>
+        <option value="a-star">A*</option>
+        <option value="depth-first-search">Depth First Search</option>
+    </select>
+      
 </div>
 
 <ul ngClass="legend-list">
@@ -23,6 +29,10 @@
     <li>
         <div ngClass="legend-item" style="background-color: yellow;"></div>
         Visited Node
+    </li>
+    <li>
+        <div ngClass="legend-item" style="background-color: #75FF57;"></div>
+        Prospected Node
     </li>
     <li>
         <div ngClass="legend-item" style="background-color: blue;"></div>

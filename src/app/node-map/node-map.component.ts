@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NodeMapService } from './services/node-map.service';
 import { DijkstraService } from './services/algorithms/dijkstra.service';
 import { AStarService } from './services/algorithms/a-star.service';
+import { DepthFirstSearchService } from './services/algorithms/depth-first-search.service';
 import { HeaderComponent } from '../header/header.component';
 import { Node } from '../node/node';
 
@@ -16,7 +17,8 @@ export class NodeMapComponent implements OnInit {
 
   constructor (private nodeMapService: NodeMapService, 
     private dijkstraService: DijkstraService,
-    private aStarService: AStarService) { }  
+    private aStartService: AStarService,
+    private depthFirstSearchService: DepthFirstSearchService) { }  
 
   message: string = '';
   mapWidth: number;
@@ -29,9 +31,10 @@ export class NodeMapComponent implements OnInit {
   isAlgorithmOperating: boolean;
   algorithmDelay: number;
   algorithmInterval: any;
+  algorithmService: any;
   
   setMapSize = (newWidth: number, newHeight: number) => {
-    console.log("(from node-map) received map size");
+    console.log(`(from node-map) received map size of ${newWidth} x ${newHeight}`);
     this.startingNode = undefined;
     this.endingNode = undefined;
     this.mapWidth = newWidth;
@@ -57,9 +60,15 @@ export class NodeMapComponent implements OnInit {
     this.headerComponent.resetAlgorithmButton();
   }
 
+  receiveClickedNode = ($event) => {
+    let clickedNode = $event;
+
+    this.nodeFunction(clickedNode);
+  };
+
   setNodeFunction = (type: string) => {
-    console.log("(from node-map) received node function");
-    switch(type) {
+    // console.log(`(from node-map) received node function: ${type}`);
+    switch (type) {
       case 'test':
         this.nodeFunction = this.testFunction;
         break;
@@ -73,46 +82,82 @@ export class NodeMapComponent implements OnInit {
         this.nodeFunction = this.setEndingNode;
         break;
     }
-  }
+  };
 
   blockNode = (node) => {
-    if (node !== this.startingNode && node !== this.endingNode && !node.isVisited && !node.isProspected) {
-      console.log(`Node at ${node.xPosition}, ${node.yPosition} is blocked: ${!node.isBlocked}`);
+    if (
+      node !== this.startingNode &&
+      node !== this.endingNode &&
+      !node.isVisited &&
+      !node.isProspected
+    ) {
+      console.log(
+        `Node at ${node.xPosition}, ${node.yPosition} is now %c${
+          !node.isBlocked ? 'blocked' : 'unblocked'
+        }`,
+        'color: yellow'
+      );
       node.isBlocked = !node.isBlocked;
     } else {
-      console.log(`Unable to block node at ${node.xPosition}, ${node.yPosition}`);
+      console.log(
+        `%cUnable to block node at ${node.xPosition}, ${node.yPosition}`,
+        'color: red'
+      );
     }
-  }
+  };
 
   setStartingNode = (node) => {
     if (node != this.endingNode && !this.isAlgorithmOperating) {
-      console.log(`Node at ${node.xPosition}, ${node.yPosition} is now starting Node`);
+      console.log(
+        `Node at ${node.xPosition}, ${node.yPosition} is now %cstarting Node`,
+        'color: lightblue'
+      );
       this.startingNode = node;
       node.isBlocked = false;
     } else {
-      console.log(`Unable to set node at ${node.xPosition}, ${node.yPosition} as starting node`);
+      console.log(
+        `%cUnable to set node at ${node.xPosition}, ${node.yPosition} as starting node`,
+        'color: red'
+      );
     }
-  }
+  };
 
   setEndingNode = (node) => {
     if (node != this.startingNode && !this.isAlgorithmOperating) {
-      console.log(`Node at ${node.xPosition}, ${node.yPosition} is now ending Node`);
+      console.log(
+        `Node at ${node.xPosition}, ${node.yPosition} is %cnow ending Node`,
+        'color: lightgreen'
+      );
       this.endingNode = node;
       node.isBlocked = false;
     } else {
-      console.log(`Unable to set node at ${node.xPosition}, ${node.yPosition} as ending node`);
+      console.log(
+        `%cUnable to set node at ${node.xPosition}, ${node.yPosition} as ending node`,
+        'color: red'
+      );
     }
-  }
+  };
 
-  receiveClickedNode = ($event) => {
-    let clickedNode = $event;
+  testFunction = (node) => {
+    console.log(
+      `Node at x: ${node.xPosition}, y: ${node.yPosition} has been clicked`
+    );
+    // console.log(node);
+    // console.log(`This node has a heuristic distance of: ${node.heuristicDistance}`);
 
-    this.nodeFunction(clickedNode);
-  }
+    // test for checking neighbours
+    // for (let { node: neighbour } of node.neighbours) {
+    //   if (neighbour) {
+    //     console.log(`Neighbour at ${neighbour.xPosition}, ${neighbour.yPosition}`);
+    //   } else {
+    //     console.log('Undefined Neighbour');
+    //   }
+    // }
+  };
 
   startAlgorithm = () => {
     this.clearMap();
-    this.aStarService.setAlgorithmValues(this.startingNode, this.endingNode);
+    this.algorithmService.setAlgorithmValues(this.startingNode, this.endingNode);
 
     this.resumeAlgorithm();
     this.isAlgorithmOperating = true;
@@ -130,21 +175,28 @@ export class NodeMapComponent implements OnInit {
   }
 
   doAlgorithmIteration = () => {
-    let currentNode = this.aStarService.doIteration();
-    this.nodePath = this.aStarService.tracePath(currentNode);
+    this.algorithmService.doIteration();
+    
+    // trace path to node being visited
+    let currentNode = this.algorithmService.currentNode;
+    this.nodePath = this.depthFirstSearchService.tracePath(currentNode);
 
-    let { isDone, reason } = this.aStarService.checkIfDone();
+    let { isDone, reason } = this.algorithmService.checkIfDone();
 
     if (isDone == true) {
-      clearInterval(this.algorithmInterval);
+      this.stopAlgorithm();
       this.headerComponent.resetAlgorithmButton();
 
       if (reason == 'reached end') {
-        console.log(`Reached End Node after ${this.aStarService.iterationCount} steps`);
+        // this.message = `Reached End Node after ${this.aStarService.iterationCount} steps`;
+        console.log(`Reached End Node after ${this.algorithmService.iterationCount} steps`);
       } else {
-        console.log('No solution available');
+        // this.message = `No solution available after ${this.aStarService.iterationCount} steps`;
+        console.log(`No solution available after ${this.algorithmService.iterationCount} steps`);
         this.nodePath = [];
       }
+
+      this.nodePath = this.algorithmService.tracePath(currentNode);
     } 
   }
 
@@ -156,17 +208,23 @@ export class NodeMapComponent implements OnInit {
     }
   }
 
-  testFunction = (node) => {
-    console.log(`Node at x: ${node.xPosition}, y: ${node.yPosition} has been clicked`);
-
-    // test for checking neighbours
-    // for (let { node: neighbour, potentialDistance } of node.neighbours) {
-    //   if (neighbour) {
-    //     console.log(`Neighbour at ${neighbour.xPosition}, ${neighbour.yPosition}`);
-    //   } else {
-    //     console.log('Undefined Neighbour');
-    //   }
-    // }
+  changeAlgorithmService = (newAlgorithm: string) => {
+    if (this.isAlgorithmOperating) {
+      console.log('(from node-map) %cunable to change algorithm', 'color: red');
+      return;
+    }
+    console.log(`(from node-map) %cchanged algorithm to ${newAlgorithm}`, 'color: lightgreen');
+    switch(newAlgorithm) {
+      case 'dijkstra':
+        this.algorithmService = this.dijkstraService;
+        break;
+      case 'a-star':
+        this.algorithmService = this.aStartService;
+        break;
+      case 'depth-first-search':
+        this.algorithmService = this.depthFirstSearchService;
+        break;
+    }
   }
 
   // default parameters
@@ -181,5 +239,6 @@ export class NodeMapComponent implements OnInit {
     this.nodePath = [];
     this.isAlgorithmOperating = false;
     this.algorithmDelay = 50;
+    this.algorithmService = this.dijkstraService;
   }
 }
