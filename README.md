@@ -8,13 +8,12 @@ project to a better, optimized, more professional version by applying Angular's 
 
 🚩 Done: 🚩
 1) added header, node-map and node components.
-2) create service for actual pathfinding algorithm!
-3) created service for A* algorithm!
-4) created service for generating node-map.
-5) configured rendering and basic styling for node-map's nodes.
-6) add caption/legend for each color on the screen.
-7) added diagonals!
+2) implemented Dijkstra, A* and Depth First Search algorithms!
+3) created service for generating node-map.
+4) configured rendering and basic styling for node-map's nodes.
+5) add caption/legend for each color on the screen.
+6) added diagonals!
 
 🚩 To do: 🚩
-1) implement start conditions.
+1) implement starting conditions.
 2) many more!
