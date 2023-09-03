@@ -1,19 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Node } from 'src/app/node/node';
+import { Pathfinder } from './pathfinder';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AStarService {
+export class AStarService extends Pathfinder{
 
-  constructor() { }
-
-  startingNode: Node;
-  endingNode: Node;
-  unvisitedNodes: Node[];
-  currentNode: Node;
-  heuristicWeight: number = 0.6;
-  iterationCount: number = 0;
+  heuristicWeight = 0.8;
 
   doIteration = () => {
     let [index, closestNode] = this.getClosestNode();
@@ -26,15 +20,7 @@ export class AStarService {
     this.iterationCount += 1;
   }
 
-  setAlgorithmValues = (start: Node, end: Node) => {
-    this.startingNode = start;
-    this.startingNode.pathDistance = 0;
-    this.endingNode = end;
-    this.unvisitedNodes = [this.startingNode];
-    this.iterationCount = 0;
-  }
-
-  // get node of least distance
+  // get node of least heuristic distance
   getClosestNode = () => {
     let closestNode = this.unvisitedNodes[0];
     let closestNodeIndex = undefined;
@@ -47,12 +33,6 @@ export class AStarService {
     }
 
     return [closestNodeIndex, closestNode];
-  }
-
-  getUnvisitedNeighbours = (node: Node) => {
-    let nodeNeighbours = node.neighbours
-
-    return [...nodeNeighbours.filter((neighbour) => !neighbour.node.isBlocked && !neighbour.node.isVisited)];
   }
 
   // add all adjacent nodes that haven't been visited to unvisitedNodes list
@@ -78,27 +58,5 @@ export class AStarService {
     }
 
     nodeToVisit.isVisited = true;
-  }
-
-  checkIfDone = (): { isDone: boolean, reason?: string } => {
-    if (this.currentNode === this.endingNode) {
-      return { isDone: true, reason: 'reached end' };
-    } else if (this.unvisitedNodes.length == 0) {
-      return { isDone: true, reason: 'no solution' };
-    } else {
-      return { isDone: false };
-    }
-  }
-
-  // get list of nodes whose parents trace to selected node
-  tracePath = (nodeToTrace: Node) => {
-    let pathNodes = [nodeToTrace];
-
-    while (nodeToTrace.parent) {
-      nodeToTrace = nodeToTrace.parent;
-      pathNodes.push(nodeToTrace);
-    }
-
-    return pathNodes;
   }
 }

@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
   }
 
   sendNodeFunction = (type: string): void => {
-    console.log(`(from header) sent function:${type}`)
+    // console.log(`(from header) sent function:${type}`)
     this.nodeMapComponent.setNodeFunction(type);
   }
 
@@ -63,6 +63,13 @@ export class HeaderComponent implements OnInit {
     console.log(`(from header) sent request to change delay to ${newDelay}`);
 
     this.nodeMapComponent.changeAlgorithmDelay(newDelay);
+  }
+
+  sendAlgorithmChange = (event: any): void => {
+    let newAlgorithm = event.target.value;
+    console.log(`(from header) sent request to change algorithm to ${newAlgorithm}`);
+
+    this.nodeMapComponent.changeAlgorithmService(newAlgorithm);
   }
   
   resetAlgorithmButton = () => {

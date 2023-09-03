@@ -1,18 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Node } from '../../../node/node';
+import { Pathfinder } from './pathfinder';
+import { Node } from 'src/app/node/node';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DijkstraService {
-
-  constructor() { }
-
-  startingNode: Node;
-  endingNode: Node;
-  unvisitedNodes: Node[];
-  currentNode: Node;
-  iterationCount: number = 0;
+export class DijkstraService extends Pathfinder {
 
   doIteration = (): undefined | Node => {
     let [index, closestNode] = this.getClosestNode();
@@ -24,14 +17,6 @@ export class DijkstraService {
 
     this.iterationCount += 1;
     return closestNode;
-  }
-
-  setAlgorithmValues = (start: Node, end: Node) => {
-    this.startingNode = start;
-    this.startingNode.pathDistance = 0;
-    this.endingNode = end;
-    this.unvisitedNodes = [this.startingNode];
-    this.iterationCount = 0;
   }
 
   // get node of least distance
@@ -47,12 +32,6 @@ export class DijkstraService {
     }
 
     return [closestNodeIndex, closestNode];
-  }
-
-  getUnvisitedNeighbours = (node: Node) => {
-    let nodeNeighbours = node.neighbours
-
-    return [...nodeNeighbours.filter((neighbour) => !neighbour.node.isBlocked && !neighbour.node.isVisited)];
   }
 
   // add all adjacent nodes that haven't been visited to unvisitedNodes list
@@ -75,27 +54,5 @@ export class DijkstraService {
     }
 
     nodeToVisit.isVisited = true;
-  }
-
-  checkIfDone = (): { isDone: boolean, reason?: string } => {
-    if (this.currentNode === this.endingNode) {
-      return { isDone: true, reason: 'reached end' };
-    } else if (this.unvisitedNodes.length == 0) {
-      return { isDone: true, reason: 'no solution' };
-    } else {
-      return { isDone: false };
-    }
-  }
-
-  // get list of nodes whose parents trace to selected node
-  tracePath = (nodeToTrace: Node) => {
-    let pathNodes = [nodeToTrace];
-
-    while (nodeToTrace.parent) {
-      nodeToTrace = nodeToTrace.parent;
-      pathNodes.push(nodeToTrace);
-    }
-
-    return pathNodes;
   }
 }
