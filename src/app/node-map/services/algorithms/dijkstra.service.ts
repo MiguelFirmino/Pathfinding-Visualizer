@@ -18,11 +18,9 @@ export class DijkstraService {
     let [index, closestNode] = this.getClosestNode();
     this.currentNode = closestNode;
 
-    // algorithm is done when it reaches ending node
-    if (!this.checkIfDone().isDone) {
-      this.visitNode(closestNode);
-      this.unvisitedNodes.splice(index, 1);
-    } 
+    // algorithm will do iteration regardless of if it's done or not
+    this.visitNode(closestNode);
+    this.unvisitedNodes.splice(index, 1);
 
     this.iterationCount += 1;
     return closestNode;
@@ -76,9 +74,7 @@ export class DijkstraService {
       }
     }
 
-    if (nodeToVisit !== this.startingNode) {
-      nodeToVisit.isVisited = true;
-    }
+    nodeToVisit.isVisited = true;
   }
 
   checkIfDone = (): { isDone: boolean, reason?: string } => {
