@@ -7,27 +7,24 @@ project to a better, optimized, more professional version by applying Angular's 
 ## 🚧 Work in progress! 🚧
 
 🚩 Done: 🚩
-1) implemented Dijkstra, A* and Depth First Search.
-2) implemented map controlling.
-3) implemented instantaneous visualization.
-4) implemented basic animations and node styling.
-5) implemented map creation and clearing.
-6) implemented click/drag dynamic controlling.
+- [x] implemented Dijkstra, A* and Depth First Search.
+- [x] implemented map controlling.
+- [x] implemented instantaneous visualization.
+- [x] implemented basic animations and node styling.
+- [x] implemented map creation and clearing.
+- [x] implemented click/drag dynamic controlling.
+- [x] improved node animations.
 
 🚩 To do: 🚩
-1) improve instantaneous visualization.
-2) improve node animations.
-3) add bidirectional swarm algorithm.
-4) many more!
-5) add bootstrap css.
-6) implement lazy rendering of node-map.
-7) figure out a way to modularize node-map-component.ts
-8) improve readability of everything.
-9) figure out a way to resize the node map dinamically.
-10) add a results section (iteration count, time spent).
-11) add preview images 📷
-12) many more!
+- [ ] improve instantaneous visualization.
+- [ ] add bootstrap css.
+- [ ] implement lazy rendering of node-map.
+- [ ] figure out a way to modularize node-map-component.ts
+- [ ] improve readability of everything.
+- [ ] add a results section (iteration count, time spent).
+- [ ] add preview images! 📷
+- many more!
 
 🚩 Maybe: 🚩
-1) implement simultaneous algorithm comparing!
-2) ideas are still brewing!
+- [ ] implement simultaneous algorithm comparing!
+- [ ] add bidirectional swarm algorithm.
