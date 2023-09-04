@@ -7,15 +7,14 @@ export class Pathfinder {
   unvisitedNodes: Node[];
   currentNode: Node;
   iterationCount: number = 0;
+  doIteration: any;
 
-  protected doIteration: any;
-
-  setAlgorithmValues = (start: Node, end: Node) => {
+  setAlgorithmValues(start: Node, end: Node) {
     this.startingNode = start;
     this.startingNode.pathDistance = 0;
     this.endingNode = end;
-    this.unvisitedNodes = [this.startingNode];
-    this.currentNode = undefined;
+    this.unvisitedNodes = [start];
+    this.currentNode = start;
     this.iterationCount = 0;
   };
 
@@ -44,11 +43,11 @@ export class Pathfinder {
   }
 
   tracePath = (nodeToTrace: Node) => {
-    let pathNodes = [nodeToTrace];
+    let pathNodes = [];
 
     while (nodeToTrace.parent) {
-      nodeToTrace = nodeToTrace.parent;
       pathNodes.push(nodeToTrace);
+      nodeToTrace = nodeToTrace.parent;
     }
 
     return pathNodes;

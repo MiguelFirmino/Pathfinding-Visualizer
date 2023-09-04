@@ -10,19 +10,9 @@ export class HeaderComponent implements OnInit {
   
   @Input() nodeMapComponent: NodeMapComponent;
 
-  width: number;
-  height: number;
   algorithmButtonText: string;
   algorithmButtonFunction: any;
   algorithmDelay: number;
-
-  setWidth = (event: any) => { this.width = parseInt(event.target.value); }
-  setHeight = (event: any) => { this.height = parseInt(event.target.value); }
-
-  sendMapSize = (): void => {
-    console.log(`(from header) sent height:${this.width}, width:${this.height}`)
-    this.nodeMapComponent.setMapSize(this.width, this.height);
-  }
 
   sendClearMap = (): void => {
     console.log('(from header) sent map clear message');
@@ -80,8 +70,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.width = 10;
-    this.height = 10;
     this.algorithmButtonText = "Start Algorithm";
     this.algorithmButtonFunction = this.sendAlgorithmStart;
     this.algorithmDelay = 60;

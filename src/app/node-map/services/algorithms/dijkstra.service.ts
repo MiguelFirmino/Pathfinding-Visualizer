@@ -45,10 +45,12 @@ export class DijkstraService extends Pathfinder {
         neighbour.pathDistance = potentialDistance;
         neighbour.parent = nodeToVisit;
 
-        if (!this.unvisitedNodes.includes(neighbour)) {
-          this.unvisitedNodes.push(neighbour);
-          neighbour.isProspected = true;
-        }
+        // if (!this.unvisitedNodes.includes(neighbour)) {
+        //   this.unvisitedNodes.push(neighbour);
+        //   neighbour.isProspected = true;
+        // }
+        this.unvisitedNodes.push(neighbour);
+        neighbour.isProspected = true;
       }
     }
 

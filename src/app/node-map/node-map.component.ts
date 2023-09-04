@@ -19,9 +19,10 @@ export class NodeMapComponent implements OnInit {
     private dijkstraService: DijkstraService,
     private aStartService: AStarService,
     private depthFirstSearchService: DepthFirstSearchService
-  ) {}
+    ) {}
 
   message: string = '';
+  isAnimated: boolean;
   mapWidth: number;
   mapHeight: number;
   nodeMap: Node[];
@@ -33,22 +34,6 @@ export class NodeMapComponent implements OnInit {
   algorithmDelay: number;
   algorithmInterval: any;
   algorithmService: any;
-
-  setMapSize = (newWidth: number, newHeight: number) => {
-    console.log(
-      `(from node-map) received map size of ${newWidth} x ${newHeight}`
-    );
-    this.startingNode = this.nodeMap[0];
-    this.endingNode = this.nodeMap[this.nodeMap.length - 1];
-    this.mapWidth = newWidth;
-    this.mapHeight = newHeight;
-    this.nodeMap = this.nodeMapService.generateMap(
-      this.mapWidth,
-      this.mapHeight
-    );
-    this.stopAlgorithm();
-    this.headerComponent.resetAlgorithmButton();
-  };
 
   clearMap = () => {
     for (let node of this.nodeMap) {
@@ -71,6 +56,7 @@ export class NodeMapComponent implements OnInit {
       `Node at x: ${node.xPosition}, y: ${node.yPosition} has been clicked`
     );
 
+    // set node function depending on what kind of node was clicked
     if (node === this.startingNode) {
       this.nodeFunction = this.setStartingNode;
     } else if (node === this.endingNode) {
@@ -85,6 +71,7 @@ export class NodeMapComponent implements OnInit {
   };
 
   receiveMovedNode = (node) => {
+    // do function that was previously defined on mousedown
     this.nodeFunction(node);
   };
 
@@ -156,10 +143,17 @@ export class NodeMapComponent implements OnInit {
   };
 
   testFunction = (node) => {
-    console.log(
-      `Node at x: ${node.xPosition}, y: ${node.yPosition} has been clicked`
-    );
-    // console.log(node);
+    // console.log(
+    //   `Node at x: ${node.xPosition}, y: ${node.yPosition} has been clicked`
+    // );
+
+    if (node.parent) {
+      console.log(
+        `This node's parent is at x:${node.parent.xPosition}, y:${node.parent.yPosition}`
+      );
+    } else {
+      console.log('This node has no parent');
+    }
     // console.log(`This node has a heuristic distance of: ${node.heuristicDistance}`);
     // test for checking neighbours
     // for (let { node: neighbour } of node.neighbours) {
@@ -172,6 +166,7 @@ export class NodeMapComponent implements OnInit {
   };
 
   startAlgorithm = () => {
+    this.isAnimated = true;
     this.clearMap();
     this.algorithmService.setAlgorithmValues(
       this.startingNode,
@@ -196,7 +191,7 @@ export class NodeMapComponent implements OnInit {
 
   doAlgorithmIteration = () => {
     this.algorithmService.doIteration();
-
+    
     // trace path to node being visited
     let currentNode = this.algorithmService.currentNode;
     // this.nodePath = this.algorithmService.tracePath(currentNode);
@@ -212,7 +207,6 @@ export class NodeMapComponent implements OnInit {
         console.log(
           `Reached End Node after ${this.algorithmService.iterationCount} steps`
         );
-
         let path = this.algorithmService.tracePath(currentNode);
         this.animatePath(path);
       } else {
@@ -257,16 +251,16 @@ export class NodeMapComponent implements OnInit {
 
   // MAKE THIS MORE READABLE
   doCompleteCycle = () => {
+    // disable animations to prevent information cluster
+    this.isAnimated = false;
     this.clearMap();
     this.algorithmService.setAlgorithmValues(
       this.startingNode,
       this.endingNode
     );
     this.algorithmService.doCompleteCycle();
+
     if (this.algorithmService.checkIfDone().reason != 'no solution') {
-      // this.nodePath = this.algorithmService.tracePath(
-      //   this.algorithmService.currentNode
-      // );
       let path = this.algorithmService.tracePath(this.algorithmService.currentNode);
       this.animatePath(path);
     }
@@ -274,13 +268,13 @@ export class NodeMapComponent implements OnInit {
 
   animatePath = (path: []) => {
     // from start to finish
-    // let animationInterval = setInterval(() => {
-    //   if (path.length > 0) {
-    //     this.nodePath.push(path.pop())
-    //   } else {
-    //     clearInterval(animationInterval);
-    //   }
-    // }, 20);
+    let animationInterval = setInterval(() => {
+      if (path.length > 0) {
+        this.nodePath.push(path.pop())
+      } else {
+        clearInterval(animationInterval);
+      }
+    }, 20);
 
     // from finish to start
     // let animationInterval = setInterval(() => {
@@ -292,28 +286,28 @@ export class NodeMapComponent implements OnInit {
     // }, 20);
 
     // random selection
-    let animationInterval = setInterval(() => {
-      if (path.length > 0) {
-        let randomIndex = Math.floor(Math.random()*path.length);
-        this.nodePath.push(path[randomIndex]);
-        path.splice(randomIndex, 1);
-      } else {
-        clearInterval(animationInterval);
-      }
-    }, 20);
+    // let animationInterval = setInterval(() => {
+    //   if (path.length > 0) {
+    //     let randomIndex = Math.floor(Math.random()*path.length);
+    //     this.nodePath.push(path[randomIndex]);
+    //     path.splice(randomIndex, 1);
+    //   } else {
+    //     clearInterval(animationInterval);
+    //   }
+    // }, 20);
   }
 
   // default parameters
   ngOnInit(): void {
     this.algorithmDelay = 50;
-    this.mapWidth = 20;
-    this.mapHeight = 20;
+    this.mapWidth = 60;
+    this.mapHeight = 30;
     this.nodeMap = this.nodeMapService.generateMap(
       this.mapWidth,
       this.mapHeight
     );
     this.startingNode = this.nodeMap[0];
-    this.endingNode = this.nodeMap[99];
+    this.endingNode = this.nodeMap[399];
     this.nodePath = [];
     this.isAlgorithmOperating = false;
     this.algorithmDelay = 50;
