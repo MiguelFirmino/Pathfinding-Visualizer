@@ -1,10 +1,15 @@
 <hr>
 <h3> {{ message }}</h3>
-<div ngClass="node-map">
+<div [ngClass]="{
+    'node-map': true,
+    'disabled-animations' : !isAnimated
+}"
+[style.--map-width]="mapWidth"
+[style.--map-height]="mapHeight">
     <app-node *ngFor="let node of nodeMap"
     [node]="node"
-    [ngClass]="{'
-        node': true, 
+    [ngClass]="{
+        'node': true, 
         'blocked' : node.isBlocked,
         'path-node' : nodePath.includes(node),
         'prospected' : node.isProspected,
@@ -12,8 +17,6 @@
         'start-node' : node == startingNode,
         'end-node' : node == endingNode
     }"
-    [style.--map-width]="mapWidth"
-    [style.--map-height]="mapHeight"
     (nodeClickEvent)="receiveClickedNode($event)"
     (nodeMoveEvent)="receiveMovedNode($event)">
     
