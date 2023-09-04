@@ -1,9 +1,6 @@
 <div>
+    <button (click)="sendCompleteCycle()">Do Instant Cycle</button>
     <button (click)="algorithmButtonFunction()">{{ algorithmButtonText }}</button>
-    <button (click)="sendNodeFunction('test')">Test Nodes</button>
-    <button (click)="sendNodeFunction('block')">Block Nodes</button>
-    <button (click)="sendNodeFunction('start')">Set Starting Node</button>
-    <button (click)="sendNodeFunction('end')">Set Ending Node</button>
     <button (click)="sendMapSize()">Generate Map</button>
     <button (click)="sendClearMap()">Clear Map</button>
     X<input (keyup)="setWidth($event)" value={{width}} type="number" min="1" max="200" #widthInput>

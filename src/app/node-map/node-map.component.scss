@@ -3,10 +3,10 @@
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    --parent-width: 25rem;
-    --parent-height: 25rem;
-    width: 25rem;
-    height: 25rem;
+    --parent-width: 30rem;
+    --parent-height: 30rem;
+    width: 30rem;
+    height: 30rem;
 }
 
 .node-map .node {
@@ -15,9 +15,86 @@
     width: calc(var(--parent-width) / var(--map-width));
     height: calc(var(--parent-height) / var(--map-height));
     transition: transform 0.15s ease-in-out;
+    background-color: white;
 }
 
 .node-map .node:hover {
     cursor: pointer;
     transform: scale(1.2);
+}
+
+.node-map .prospected {
+    background-color: #75FF57;
+}
+
+.node-map .visited {
+    background-color: #ffff00;
+}
+
+.node-map .path-node {
+    background-color: #ffa500;
+    animation: pathNodeAnim 0.3s;
+}
+
+.node-map .blocked {
+    background-color : #444444;
+    animation: blockAnim 0.2s ease-out;
+}
+
+.node-map .start-node {
+    background-color: #0000ff;
+    animation: startNodeAnim 0.15s;
+}
+
+.node-map .end-node {
+    background-color: #ff0000;
+    animation: endNodeAnim 0.15s ease-out;
+}
+
+@keyframes blockAnim {
+    0% {
+        transform: scale(1.3) rotate(8deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+
+@keyframes startNodeAnim {
+    0% {
+        transform: scale(0.7);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes endNodeAnim {
+    0% {
+        transform: scale(0.7);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes pathNodeAnim {
+    0% {
+        transform: scale(0.8);
+    }
+    30% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes prospectedAnim {
+
+}
+
+@keyframes visitedAnim {
+
 }

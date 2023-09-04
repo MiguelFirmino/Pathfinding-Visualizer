@@ -13,7 +13,8 @@ export class NodeComponent {
   @Input() isEndingNode: boolean;
   @Input() isPathNode: boolean;
 
-  @Output() nodeEvent = new EventEmitter<Node>;
+  @Output() nodeClickEvent = new EventEmitter<Node>;
+  @Output() nodeMoveEvent = new EventEmitter<Node>;
 
   constructor() { }
 
@@ -22,29 +23,12 @@ export class NodeComponent {
   sendClickedNode = () => {
     // Emits this node to parent element 'node-map'
     // console.log(`Node at ${this.node.xPosition}, ${this.node.yPosition} has been clicked`);
-    this.nodeEvent.emit(this.node);
+    this.nodeClickEvent.emit(this.node);
   }
-  
-  styleNode = () => {
-    if (this.node.isBlocked) {
-      return { backgroundColor : '#444444' };
+
+  sendMovednode = (event) => {
+    if (event.buttons === 1) {
+      this.nodeMoveEvent.emit(this.node);
     }
-    if (this.isStartingNode) {
-      return { backgroundColor : 'blue' };
-    }
-    if (this.isEndingNode) {
-      return { backgroundColor : 'red' };
-    }
-    if (this.isPathNode) {
-      return { backgroundColor : 'orange' };
-    }
-    if (this.node.isVisited) {
-      return { backgroundColor : 'yellow' };
-    }
-    if (this.node.isProspected) {
-      return { backgroundColor : '#75FF57' };
-    }
-    
-    return { backgroundColor : 'white' };
   }
 }

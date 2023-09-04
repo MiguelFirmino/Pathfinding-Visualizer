@@ -7,7 +7,7 @@ import { Pathfinder } from './pathfinder';
 })
 export class DepthFirstSearchService extends Pathfinder {
 
-  doIteration = () => {
+  override doIteration = (): void => {
     let mostRecentNode = this.unvisitedNodes.pop();
     this.currentNode = mostRecentNode;
 

@@ -29,11 +29,6 @@ export class HeaderComponent implements OnInit {
     this.nodeMapComponent.clearMap();
   }
 
-  sendNodeFunction = (type: string): void => {
-    // console.log(`(from header) sent function:${type}`)
-    this.nodeMapComponent.setNodeFunction(type);
-  }
-
   sendAlgorithmStart = (): void => {
     console.log('(from header) sent request to start algorithm');
     this.nodeMapComponent.startAlgorithm();
@@ -70,6 +65,13 @@ export class HeaderComponent implements OnInit {
     console.log(`(from header) sent request to change algorithm to ${newAlgorithm}`);
 
     this.nodeMapComponent.changeAlgorithmService(newAlgorithm);
+  }
+
+  // TEST FUNCTION
+  sendCompleteCycle = (): void => {
+    console.log('(from header) sent request to do complete execution');
+    
+    this.nodeMapComponent.doCompleteCycle();
   }
   
   resetAlgorithmButton = () => {
