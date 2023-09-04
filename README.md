@@ -6,14 +6,18 @@ project to a better, optimized, more professional version by applying Angular's 
 
 ## 🚧 Work in progress! 🚧
 
-🚩 Done: 🚩
-1) added header, node-map and node components.
-2) implemented Dijkstra, A* and Depth First Search algorithms!
-3) created service for generating node-map.
-4) configured rendering and basic styling for node-map's nodes.
-5) add caption/legend for each color on the screen.
-6) added diagonals!
-
 🚩 To do: 🚩
-1) implement starting conditions.
-2) many more!
+1) configure insta visualization.
+2) improve node animations.
+3) add preview images 📷
+4) many more!
+5) add bootstrap css.
+6) implement lazy rendering of node map.
+7) figure out a way to modularize node-map-component.ts
+8) improve readability of everything.
+9) figure out a way to resize the node map dinamically.
+10) add a results section (iteration count, time spent).
+11) many more!
+
+🚩 Maybe: 🚩
+1) implement simultaneous algorithm comparing!
