@@ -8,11 +8,14 @@ export class Pathfinder {
   currentNode: Node;
   iterationCount: number = 0;
 
+  protected doIteration: any;
+
   setAlgorithmValues = (start: Node, end: Node) => {
     this.startingNode = start;
     this.startingNode.pathDistance = 0;
     this.endingNode = end;
     this.unvisitedNodes = [this.startingNode];
+    this.currentNode = undefined;
     this.iterationCount = 0;
   };
 
@@ -31,6 +34,14 @@ export class Pathfinder {
       return { isDone: false };
     }
   };
+
+  doCompleteCycle = () => {
+    while (!this.checkIfDone().isDone) {
+      this.doIteration();
+    }
+
+    return this.currentNode;
+  }
 
   tracePath = (nodeToTrace: Node) => {
     let pathNodes = [nodeToTrace];

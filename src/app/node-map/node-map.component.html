@@ -3,13 +3,19 @@
 <div ngClass="node-map">
     <app-node *ngFor="let node of nodeMap"
     [node]="node"
-    [isStartingNode]="node == startingNode ? true : false"
-    [isEndingNode]="node == endingNode ? true : false"
-    [isPathNode]="nodePath.includes(node)"
-    ngClass="node"
+    [ngClass]="{'
+        node': true, 
+        'blocked' : node.isBlocked,
+        'path-node' : nodePath.includes(node),
+        'prospected' : node.isProspected,
+        'visited' : node.isVisited,
+        'start-node' : node == startingNode,
+        'end-node' : node == endingNode
+    }"
     [style.--map-width]="mapWidth"
     [style.--map-height]="mapHeight"
-    (nodeEvent)="receiveClickedNode($event)">
+    (nodeClickEvent)="receiveClickedNode($event)"
+    (nodeMoveEvent)="receiveMovedNode($event)">
     
     </app-node>
 </div>

@@ -7,7 +7,7 @@ import { Node } from 'src/app/node/node';
 })
 export class DijkstraService extends Pathfinder {
 
-  doIteration = (): undefined | Node => {
+  override doIteration = (): void => {
     let [index, closestNode] = this.getClosestNode();
     this.currentNode = closestNode;
 
@@ -16,7 +16,6 @@ export class DijkstraService extends Pathfinder {
     this.unvisitedNodes.splice(index, 1);
 
     this.iterationCount += 1;
-    return closestNode;
   }
 
   // get node of least distance

@@ -9,7 +9,7 @@ export class AStarService extends Pathfinder{
 
   heuristicWeight = 0.8;
 
-  doIteration = () => {
+  override doIteration = (): void => {
     let [index, closestNode] = this.getClosestNode();
     this.currentNode = closestNode;
 
