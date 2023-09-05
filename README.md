@@ -4,27 +4,56 @@ A pathfinding algorithm visualizer built on Angular. With this project, my goal 
 Not only that, but I aim to completely overhaul my former <a href="https://github.com/MiguelFirmino/Dijkstra-Visualizer/tree/master">Dijkstra Visualizer</a> 
 project to a better, optimized, more professional version by applying Angular's powerful tools.
 
+## Instructions📜
+
+This application will soon be hosted online, a link will be provided on this page when so. But meanwhile, follow these instructions and test this application:
+
+1) Download or clone this repository.
+2) Open the main folder on command prompt and type: "ng serve".
+3) Enter "localhost:4200" or wherever it's being hosted on your browser.
+4) Control the grid by clicking/dragging on it.
+
 ## 🚧 Work in progress! 🚧
+
+As of now(September 5, 2023), this project is being actively worked on, it's expected to see further implementations, bug fixes and improvements.
 
 🚩 Done: 🚩
 - [x] implemented Dijkstra, A* and Depth First Search.
-- [x] implemented map controlling.
-- [x] implemented instantaneous visualization.
+- [x] implemented dynamic map controlling.
 - [x] implemented basic animations and node styling.
 - [x] implemented map creation and clearing.
 - [x] implemented click/drag dynamic controlling.
 - [x] improved node animations.
 
 🚩 To do: 🚩
-- [ ] improve instantaneous visualization.
-- [ ] add bootstrap css.
-- [ ] implement lazy rendering of node-map.
-- [ ] figure out a way to modularize node-map-component.ts
-- [ ] improve readability of everything.
-- [ ] add a results section (iteration count, time spent).
-- [ ] add preview images! 📷
+- [ ] add Bootstrap CSS:
+  - [x] install in project.
+  - [ ] use to style map controller(header).
+  - [ ] apply general typography.
+  - [ ] add preview images! 📷
+- [ ] implement instantaneous visualization:
+  - [ ] add toggle button.
+  - [x] add manual button. 
+  - [x] reduce excessive animations while doing insta visualization.
+- [ ] figure out a way to modularize node-map-component.ts:
+  - [x] created services for each algorithm.
+- [ ] improve page starting render:
+  - [ ] implement lazy rendering of node-map.
+  - [ ] add routes and such(if needed).
+- [ ] add footer:
+  - [ ] add algorithm info section(iterations, time consumed).
+- [ ] improve readability of everything(it's never readable enough).
 - many more!
 
 🚩 Maybe: 🚩
 - [ ] implement simultaneous algorithm comparing!
+- [ ] add pop-ups with info about the algorithm.
 - [ ] add bidirectional swarm algorithm.
+
+## Concepts Applied🏴
+
+- Angular's Property Binding.
+- CSS Animation, Transition.
+- Typescript Class Inheritance(OOP).
+- Bootstrap Grid System, Typography.
+- Dijkstra, A* and Depth First Search Algorithms.
