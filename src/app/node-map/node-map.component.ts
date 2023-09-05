@@ -34,6 +34,7 @@ export class NodeMapComponent implements OnInit {
   algorithmDelay: number;
   algorithmInterval: any;
   algorithmService: any;
+  pathAnimationInterval: any;
 
   clearMap = () => {
     for (let node of this.nodeMap) {
@@ -44,6 +45,7 @@ export class NodeMapComponent implements OnInit {
       node.isProspected = false;
     }
 
+    clearInterval(this.pathAnimationInterval);
     this.nodePath = [];
     this.setStartingNode(this.startingNode);
     this.setEndingNode(this.endingNode);
@@ -52,9 +54,10 @@ export class NodeMapComponent implements OnInit {
   };
 
   receiveClickedNode = (node) => {
-    console.log(
-      `Node at x: ${node.xPosition}, y: ${node.yPosition} has been clicked`
-    );
+    // console.log(
+    //   `Node at x: ${node.xPosition}, y: ${node.yPosition} has been clicked`
+    // );
+    console.log(this.nodeMap.indexOf(node));
 
     // set node function depending on what kind of node was clicked
     if (node === this.startingNode) {
@@ -140,29 +143,6 @@ export class NodeMapComponent implements OnInit {
         'color: red'
       );
     }
-  };
-
-  testFunction = (node) => {
-    // console.log(
-    //   `Node at x: ${node.xPosition}, y: ${node.yPosition} has been clicked`
-    // );
-
-    if (node.parent) {
-      console.log(
-        `This node's parent is at x:${node.parent.xPosition}, y:${node.parent.yPosition}`
-      );
-    } else {
-      console.log('This node has no parent');
-    }
-    // console.log(`This node has a heuristic distance of: ${node.heuristicDistance}`);
-    // test for checking neighbours
-    // for (let { node: neighbour } of node.neighbours) {
-    //   if (neighbour) {
-    //     console.log(`Neighbour at ${neighbour.xPosition}, ${neighbour.yPosition}`);
-    //   } else {
-    //     console.log('Undefined Neighbour');
-    //   }
-    // }
   };
 
   startAlgorithm = () => {
@@ -253,11 +233,14 @@ export class NodeMapComponent implements OnInit {
   doCompleteCycle = () => {
     // disable animations to prevent information cluster
     this.isAnimated = false;
+    clearInterval(this.pathAnimationInterval);
+
     this.clearMap();
     this.algorithmService.setAlgorithmValues(
       this.startingNode,
       this.endingNode
     );
+
     this.algorithmService.doCompleteCycle();
 
     if (this.algorithmService.checkIfDone().reason != 'no solution') {
@@ -267,32 +250,34 @@ export class NodeMapComponent implements OnInit {
   };
 
   animatePath = (path: []) => {
+    let animationDelay = 2000 / path.length ** 2;
+
     // from start to finish
-    let animationInterval = setInterval(() => {
+    this.pathAnimationInterval = setInterval(() => {
       if (path.length > 0) {
         this.nodePath.push(path.pop())
       } else {
-        clearInterval(animationInterval);
+        clearInterval(this.pathAnimationInterval);
       }
-    }, 20);
+    }, animationDelay);
 
     // from finish to start
-    // let animationInterval = setInterval(() => {
+    // this.pathAnimationInterval = setInterval(() => {
     //   if (path.length > 0) {
     //     this.nodePath.push(path.pop())
     //   } else {
-    //     clearInterval(animationInterval);
+    //     clearInterval(this.pathAnimationInterval);
     //   }
     // }, 20);
 
     // random selection
-    // let animationInterval = setInterval(() => {
+    // this.pathAnimationInterval = setInterval(() => {
     //   if (path.length > 0) {
     //     let randomIndex = Math.floor(Math.random()*path.length);
     //     this.nodePath.push(path[randomIndex]);
     //     path.splice(randomIndex, 1);
     //   } else {
-    //     clearInterval(animationInterval);
+    //     clearInterval(this.pathAnimationInterval);
     //   }
     // }, 20);
   }
@@ -306,8 +291,8 @@ export class NodeMapComponent implements OnInit {
       this.mapWidth,
       this.mapHeight
     );
-    this.startingNode = this.nodeMap[0];
-    this.endingNode = this.nodeMap[399];
+    this.startingNode = this.nodeMap[854];
+    this.endingNode = this.nodeMap[885];
     this.nodePath = [];
     this.isAlgorithmOperating = false;
     this.algorithmDelay = 50;
