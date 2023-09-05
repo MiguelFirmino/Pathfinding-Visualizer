@@ -17,6 +17,11 @@
     animation: none !important;
 }
 
+.disabled-animations .node:hover {
+    transition: none !important;
+    transform: none !important;
+}
+
 .node-map .node {
     border-width: 0 1px 1px 0;
     border-style: solid;
@@ -36,21 +41,11 @@
 
 .node-map .prospected {
     background-color: #75FF57;
-    animation: prospectedAnim 0.3s ease;
-}
-
-@keyframes prospectedAnim {
-    0% {
-        transform: scale(0.8);
-    }
-    100% {
-        transform: scale(1);
-    }
 }
 
 .node-map .visited {
     background-color: #ffff00;
-    animation: visitedAnim 0.35s;
+    animation: visitedAnim 0.25s;
 }
 
 @keyframes visitedAnim {

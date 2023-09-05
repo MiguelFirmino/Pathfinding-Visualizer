@@ -38,8 +38,6 @@ export class Pathfinder {
     while (!this.checkIfDone().isDone) {
       this.doIteration();
     }
-
-    return this.currentNode;
   }
 
   tracePath = (nodeToTrace: Node) => {
