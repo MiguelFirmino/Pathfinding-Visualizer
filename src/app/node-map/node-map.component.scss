@@ -1,3 +1,12 @@
+.disabled-animations .node {
+    animation: none !important;
+}
+
+.disabled-animations .node:hover {
+    transition: none !important;
+    transform: none !important;
+}
+
 .node-map {
     box-sizing: content-box;
     border-width: 1px 0 0 1px;
@@ -11,15 +20,6 @@
     --parent-height: calc(1.12vw * var(--map-height));
     width: var(--parent-width);
     height: var(--parent-height);
-}
-
-.disabled-animations .node {
-    animation: none !important;
-}
-
-.disabled-animations .node:hover {
-    transition: none !important;
-    transform: none !important;
 }
 
 .node-map .node {
@@ -76,7 +76,7 @@
 
 .node-map .blocked {
     background-color : #444;
-    animation: blockAnim 0.2s ease-out;
+    animation: blockAnim 0.2s ease-out !important;
 }
 
 @keyframes blockAnim {

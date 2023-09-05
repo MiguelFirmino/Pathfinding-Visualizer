@@ -284,18 +284,19 @@ export class NodeMapComponent implements OnInit {
 
   // default parameters
   ngOnInit(): void {
-    this.algorithmDelay = 50;
-    this.mapWidth = 60;
-    this.mapHeight = 30;
+    this.algorithmDelay = 50; // 50
+    this.mapWidth = 10; // 60
+    this.mapHeight = 10; // 30
     this.nodeMap = this.nodeMapService.generateMap(
       this.mapWidth,
       this.mapHeight
     );
-    this.startingNode = this.nodeMap[854];
-    this.endingNode = this.nodeMap[885];
+    this.startingNode = this.nodeMap[30]; // 854
+    this.endingNode = this.nodeMap[60]; // 885
     this.nodePath = [];
     this.isAlgorithmOperating = false;
-    this.algorithmDelay = 50;
+    this.algorithmDelay = 50; // 50
     this.algorithmService = this.dijkstraService;
+    this.isAnimated = true; // true
   }
 }
