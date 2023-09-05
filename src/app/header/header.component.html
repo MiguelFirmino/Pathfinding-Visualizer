@@ -1,45 +1,82 @@
-<h2>Pathfinding Visualizer</h2>
-
-<div ngClass="controller-interface">
-    <button (click)="sendCompleteCycle()">Instant Visualization</button>
-    <button (click)="algorithmButtonFunction()">{{ algorithmButtonText }}</button>
-    <button (click)="sendClearMap()">Clear Map</button>
-    Delay<input (change)="sendDelayChange($event)" type="range" value={{algorithmDelay}} min="20" max="100" />
-    Algorithm<select (change)="sendAlgorithmChange($event)">
-        <option value="dijkstra" selected>Dijkstra</option>
-        <option value="a-star">A*</option>
-        <option value="depth-first-search">Depth First Search</option>
-    </select>
-      
-</div>
-
-<ul ngClass="legend-list">
-    <li>
-        <div ngClass="legend-item"></div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2 class="text-center">Pathfinding Visualizer</h2>
+        </div>
+    </div>
+    
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary col" (click)="algorithmButtonFunction()">
+          {{ algorithmButtonText }}
+        </button>
+      </div>
+    
+      <div class="col">
+        <button class="btn btn-primary col" (click)="sendCompleteCycle()">
+          Instant Visualization
+        </button>
+      </div>
+    
+      <div class="col">
+        <button class="btn btn-primary" (click)="sendClearMap()">Clear Map</button>
+      </div>
+    
+      <div class="col">
+        <label for="delayRange" class="form-label">Delay</label>
+        <input
+          class="form-range"
+          (change)="sendDelayChange($event)"
+          type="range"
+          value="{{ algorithmDelay }}"
+          min="20"
+          max="100"
+          id="delayRange"
+        />
+      </div>
+    
+      <div class="col">
+        <label for="algorithmSelect">Algorithm</label>
+        <select
+          class="form-select"
+          (change)="sendAlgorithmChange($event)"
+          id="algorithmSelect"
+        >
+          <option value="dijkstra" selected>Dijkstra</option>
+          <option value="a-star">A*</option>
+          <option value="depth-first-search">Depth First Search</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="row user-select-none">
+      <div class="col">
+        <span ngClass="legend-item"></span>
         Blank Node
-    </li>
-    <li>
-        <div ngClass="legend-item" style="background-color: #444444;"></div>
+      </div>
+      <div class="col">
+        <span ngClass="legend-item" style="background-color: #444444"></span>
         Blocked Node
-    </li>
-    <li>
-        <div ngClass="legend-item" style="background-color: yellow;"></div>
+      </div>
+      <div class="col">
+        <span ngClass="legend-item" style="background-color: yellow"></span>
         Visited Node
-    </li>
-    <li>
-        <div ngClass="legend-item" style="background-color: #75FF57;"></div>
+      </div>
+      <div class="col">
+        <span ngClass="legend-item" style="background-color: #75ff57"></span>
         Prospected Node
-    </li>
-    <li>
-        <div ngClass="legend-item" style="background-color: blue;"></div>
+      </div>
+      <div class="col">
+        <span ngClass="legend-item" style="background-color: blue"></span>
         Start Node
-    </li>
-    <li>
-        <div ngClass="legend-item" style="background-color: red;"></div>
+      </div>
+      <div class="col">
+        <span ngClass="legend-item" style="background-color: red"></span>
         End Node
-    </li>
-    <li>
-        <div ngClass="legend-item" style="background-color: orange"></div>
+      </div>
+      <div class="col">
+        <span ngClass="legend-item" style="background-color: orange"></span>
         Path
-    </li>
-</ul>
+      </div>
+    </div>
+</div>

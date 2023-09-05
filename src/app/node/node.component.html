@@ -1,3 +1,5 @@
-<div (mouseenter)="sendMovednode($event)" (mousedown)="sendClickedNode()" ngClass="info-box">
+<span (mouseenter)="sendMovednode($event)" 
+(mousedown)="sendClickedNode()" 
+[ngStyle]="{'display' : 'block','height' : '100%', 'width' : '100%'}">
     
-</div>
+</span>

@@ -1,26 +1,4 @@
-h2 {
-    text-align: center;
-}
-
-.controller-interface {
-    margin: 0 auto;
-    width: 65vw;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-.legend-list {
-    margin: 0 auto;
-    width: 55vw;
-    height: 3rem;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    list-style-type: none;
-}
-
-.legend-list .legend-item {
+.legend-item {
     display: inline-block;
     width: 1.25rem;
     height: 1.25rem;
