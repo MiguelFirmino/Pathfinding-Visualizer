@@ -245,7 +245,8 @@ export class NodeMapComponent implements OnInit {
 
     if (this.algorithmService.checkIfDone().reason != 'no solution') {
       let path = this.algorithmService.tracePath(this.algorithmService.currentNode);
-      this.animatePath(path);
+      // this.animatePath(path);
+      this.nodePath = path;
     }
   };
 
