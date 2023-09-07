@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { NodeMapService } from './services/node-map.service';
 import { DijkstraService } from './services/algorithms/dijkstra.service';
 import { AStarService } from './services/algorithms/a-star.service';
@@ -9,10 +9,13 @@ import { Node } from '../node/node';
 @Component({
   selector: 'app-node-map',
   templateUrl: './node-map.component.html',
-  styleUrls: ['./node-map.component.scss'],
+  styleUrls: ['./node-map.component.scss']
 })
 export class NodeMapComponent implements OnInit {
-  @Input() headerComponent: HeaderComponent;
+
+  @HostListener('document:keydown.Space') onKeyDown() { 
+    this.doCompleteCycle();
+  }
 
   constructor(
     private nodeMapService: NodeMapService,
@@ -35,6 +38,7 @@ export class NodeMapComponent implements OnInit {
   algorithmInterval: any;
   algorithmService: any;
   pathAnimationInterval: any;
+  isInstaOn: boolean;
 
   clearMap = () => {
     for (let node of this.nodeMap) {
@@ -47,10 +51,7 @@ export class NodeMapComponent implements OnInit {
 
     clearInterval(this.pathAnimationInterval);
     this.nodePath = [];
-    this.setStartingNode(this.startingNode);
-    this.setEndingNode(this.endingNode);
     this.stopAlgorithm();
-    this.headerComponent.resetAlgorithmButton();
   };
 
   receiveClickedNode = (node) => {
@@ -94,7 +95,10 @@ export class NodeMapComponent implements OnInit {
         `%cUnable to block node at ${node.xPosition}, ${node.yPosition}`,
         'color: red'
       );
+      return;
     }
+
+    this.autoComplete();
   };
 
   unblockNode = (node) => {
@@ -105,6 +109,8 @@ export class NodeMapComponent implements OnInit {
       );
       node.isBlocked = false;
     }
+
+    this.autoComplete();
   };
 
   setStartingNode = (node) => {
@@ -123,12 +129,14 @@ export class NodeMapComponent implements OnInit {
         `%cUnable to set node at ${node.xPosition}, ${node.yPosition} as starting node`,
         'color: red'
       );
+      return;
     }
+
+    this.autoComplete();
   };
 
   setEndingNode = (node) => {
-    if (
-      !node.isBlocked &&
+    if (!node.isBlocked &&
       node != this.startingNode &&
       !this.isAlgorithmOperating
     ) {
@@ -142,7 +150,10 @@ export class NodeMapComponent implements OnInit {
         `%cUnable to set node at ${node.xPosition}, ${node.yPosition} as ending node`,
         'color: red'
       );
+      return;
     }
+
+    this.autoComplete();
   };
 
   startAlgorithm = () => {
@@ -180,7 +191,6 @@ export class NodeMapComponent implements OnInit {
 
     if (isDone == true) {
       this.stopAlgorithm();
-      this.headerComponent.resetAlgorithmButton();
 
       if (reason == 'reached end') {
         // this.message = `Reached End Node after ${this.aStarService.iterationCount} steps`;
@@ -208,10 +218,6 @@ export class NodeMapComponent implements OnInit {
   };
 
   changeAlgorithmService = (newAlgorithm: string) => {
-    if (this.isAlgorithmOperating) {
-      console.log('(from node-map) %cunable to change algorithm', 'color: red');
-      return;
-    }
     console.log(
       `(from node-map) %cchanged algorithm to ${newAlgorithm}`,
       'color: lightgreen'
@@ -227,7 +233,21 @@ export class NodeMapComponent implements OnInit {
         this.algorithmService = this.depthFirstSearchService;
         break;
     }
+
+    this.autoComplete();
   };
+
+  toggleInstantVisualization = () => {
+    this.isInstaOn = !this.isInstaOn
+    
+    this.autoComplete();
+  }
+
+  autoComplete = () => {
+    if (this.isInstaOn) {
+      this.doCompleteCycle();
+    }
+  }
 
   // MAKE THIS MORE READABLE
   doCompleteCycle = () => {
@@ -286,12 +306,13 @@ export class NodeMapComponent implements OnInit {
   // default parameters
   ngOnInit(): void {
     this.algorithmDelay = 50; // 50
-    this.mapWidth = 10; // 60
-    this.mapHeight = 10; // 30
+    this.mapWidth = 60; // 60
+    this.mapHeight = 30; // 30
     this.nodeMap = this.nodeMapService.generateMap(
       this.mapWidth,
       this.mapHeight
     );
+
     this.startingNode = this.nodeMap[30]; // 854
     this.endingNode = this.nodeMap[60]; // 885
     this.nodePath = [];

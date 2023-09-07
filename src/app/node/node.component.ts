@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Node } from './node';
 
 @Component({
@@ -7,27 +7,21 @@ import { Node } from './node';
   styleUrls: ['./node.component.scss']
 })
 export class NodeComponent {
-  // lets try to come up with a better solution for this
   @Input() node: Node;
-  @Input() isStartingNode: boolean;
-  @Input() isEndingNode: boolean;
-  @Input() isPathNode: boolean;
 
   @Output() nodeClickEvent = new EventEmitter<Node>;
   @Output() nodeMoveEvent = new EventEmitter<Node>;
 
-  constructor() { }
-
-  infinity = Infinity;
+  constructor(private detector: ChangeDetectorRef) {}
 
   sendClickedNode = () => {
-    // Emits this node to parent element 'node-map'
-    // console.log(`Node at ${this.node.xPosition}, ${this.node.yPosition} has been clicked`);
     this.nodeClickEvent.emit(this.node);
   }
 
   sendMovednode = (event) => {
+    event.stopPropagation();
     if (event.buttons === 1) {
+      console.log(`mouse moved over node at x: ${this.node.xPosition}, y: ${this.node.yPosition}`);
       this.nodeMoveEvent.emit(this.node);
     }
   }

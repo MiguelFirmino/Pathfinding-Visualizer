@@ -1,6 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
+:root {
+    /* Standard Palette */
+    /*
+    --blank-node-bg: #fff;
+    --blocked-node-bg: #444;
+    --visited-node-bg: #ffff00;
+    --prospected-node-bg: #75FF57;
+    --path-node-bg: #ffa500;
+    --start-node-bg: #0000ff;
+    --end-node-bg: #ff0000;
+    */
+    /* Secondary Palette */
+    --blank-node-bg: #fff;
+    --blocked-node-bg: #444;
+    --visited-node-bg: #52FFB8;
+    --prospected-node-bg: #368F8B;
+    --path-node-bg: #FAC748;
+    --start-node-bg: #0267C1;
+    --end-node-bg: #FF1D15;
+}
+
 * {
     box-sizing: border-box;
 }

@@ -1,19 +1,32 @@
 <div class="container-lg">
-    <div class="row d-none d-sm-flex py-2 py-lg-3 py-xl-4">
+  <div class="row d-none d-sm-flex py-2 py-lg-3 py-xl-4">
         <div class="col">
             <h2 class="text-center">Pathfinding Visualizer</h2>
         </div>
-    </div>
-    
-    <div class="row pb-2">
+  </div>
+
+  <div class="row pb-2">
       <div class="col">
-        <button class="btn btn-primary col" (click)="algorithmButtonFunction()">
-          {{ algorithmButtonText }}
+        <button 
+        class="btn btn-primary col" 
+        (click)="nodeMapComponent.isAlgorithmOperating ? sendAlgorithmStop() : sendAlgorithmStart()"
+        >
+          {{ nodeMapComponent.isAlgorithmOperating ? "Stop Algorithm" : "Start Algorithm" }}
         </button>
       </div>
     
       <div class="col">
-        <button class="btn btn-primary col" (click)="sendCompleteCycle()">
+        <button 
+        type="button" 
+        [ngClass]="{
+          'btn btn-primary' : true,
+          'active' : nodeMapComponent.isInstaOn
+        }" 
+        (click)="sendInstaToggle()"
+        data-toggle="button" 
+        [ariaPressed]="nodeMapComponent.isInstaOn"
+        autocomplete="off"
+        >
           Instant Visualization
         </button>
       </div>
@@ -28,7 +41,7 @@
           class="form-range"
           (change)="sendDelayChange($event)"
           type="range"
-          value="{{ algorithmDelay }}"
+          value="60"
           min="20"
           max="100"
           id="delayRange"
@@ -41,42 +54,43 @@
           class="form-select-sm"
           (change)="sendAlgorithmChange($event)"
           id="algorithmSelect"
+          [disabled]="nodeMapComponent.isAlgorithmOperating"
         >
           <option value="dijkstra" selected>Dijkstra</option>
           <option value="a-star">A*</option>
           <option value="depth-first-search">Depth First Search</option>
         </select>
       </div>
-    </div>
-    
-    <div class="row gx-0 gy-1  mx-5 d-none d-sm-flex py-1 user-select-none">
+  </div>
+
+  <div class="row gx-0 gy-1  mx-5 d-none d-sm-flex py-1 user-select-none">
       <div class="col-3 col-md d-flex justify-content-center align-items-center">
-        <span ngClass="legend-item" style="background-color: #fff;"></span>
+        <span ngClass="legend-item" style="background-color: var(--blank-node-bg);"></span>
         <span class="px-1">Blank</span>
       </div>
       <div class="col-3 col-md d-flex justify-content-center align-items-center">
-        <span ngClass="legend-item" style="background-color: #444444"></span>
+        <span ngClass="legend-item" style="background-color: var(--blocked-node-bg)"></span>
         <span class="px-1">Blocked</span>
       </div>
       <div class="col-3 col-md d-flex justify-content-center align-items-center">
-        <span ngClass="legend-item" style="background-color: #ffff00"></span>
+        <span ngClass="legend-item" style="background-color: var(--visited-node-bg)"></span>
         <span class="px-1">Visited</span>
       </div>
       <div class="col-3 col-md d-flex justify-content-center align-items-center">
-        <span ngClass="legend-item" style="background-color: #75ff57"></span>
+        <span ngClass="legend-item" style="background-color: var(--prospected-node-bg)"></span>
         <span class="px-1">Prospected</span>
       </div>
       <div class="col-3 col-md d-flex justify-content-center align-items-center">
-        <span ngClass="legend-item" style="background-color: #0000ff"></span>
+        <span ngClass="legend-item" style="background-color: var(--start-node-bg)"></span>
         <span class="px-1">Start</span>
       </div>
       <div class="col-3 col-md d-flex justify-content-center align-items-center">
-        <span ngClass="legend-item" style="background-color: #ff0000"></span>
+        <span ngClass="legend-item" style="background-color: var(--end-node-bg)"></span>
         <span class="px-1">End</span>
       </div>
       <div class="col-3 col-md d-flex justify-content-center align-items-center">
-        <span ngClass="legend-item" style="background-color: #ffa500"></span>
+        <span ngClass="legend-item" style="background-color: var(--path-node-bg)"></span>
         <span class="px-1">Path</span>
       </div>
-    </div>
+  </div>
 </div>

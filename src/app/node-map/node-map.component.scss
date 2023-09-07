@@ -23,6 +23,7 @@
 }
 
 .node-map .node {
+    background-color: var(--blank-node-bg);
     border-width: 0 1px 1px 0;
     border-style: solid;
     border-color: black;
@@ -31,7 +32,15 @@
     width: calc(var(--parent-width) / var(--map-width));
     height: calc(var(--parent-height) / var(--map-height));
     transition: transform 0.15s ease-in-out;
-    background-color: white;
+}
+
+@keyframes nodeAnim {
+    0% {
+        transform: scale(1.2) rotate(-8deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+    }
 }
 
 .node-map .node:hover {
@@ -40,11 +49,11 @@
 }
 
 .node-map .prospected {
-    background-color: #75FF57;
+    background-color: var(--prospected-node-bg);
 }
 
 .node-map .visited {
-    background-color: #ffff00;
+    background-color: var(--visited-node-bg);
     animation: visitedAnim 0.25s;
 }
 
@@ -58,7 +67,7 @@
 }
 
 .node-map .path-node {
-    background-color: #ffa500;
+    background-color: var(--path-node-bg);
     animation: pathNodeAnim 0.3s;
 }
 
@@ -75,17 +84,17 @@
 }
 
 .node-map .blocked {
-    background-color : #444;
+    background-color : var(--blocked-node-bg);
     animation: blockAnim 0.2s ease-out !important;
 }
 
 @keyframes blockAnim {
     0% {
-        background-color: #fff;
+        background-color: initial;
         transform: scale(1.3) rotate(8deg);
     }
     50% {
-        background-color: #444;
+        background-color: var(--blocked-node-bg);
     }
     100% {
         transform: scale(1) rotate(0deg);
@@ -93,7 +102,7 @@
 }
 
 .node-map .start-node {
-    background-color: #0000ff;
+    background-color: var(--start-node-bg);
     animation: startNodeAnim 0.15s;
 }
 
@@ -107,7 +116,7 @@
 }
 
 .node-map .end-node {
-    background-color: #ff0000;
+    background-color: var(--end-node-bg);
     animation: endNodeAnim 0.15s ease-out;
 }
 
