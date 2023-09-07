@@ -6,13 +6,9 @@ import { NodeMapComponent } from '../node-map/node-map.component';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   
   @Input() nodeMapComponent: NodeMapComponent;
-
-  algorithmButtonText: string;
-  algorithmButtonFunction: any;
-  algorithmDelay: number;
 
   sendClearMap = (): void => {
     console.log('(from header) sent map clear message');
@@ -22,25 +18,16 @@ export class HeaderComponent implements OnInit {
   sendAlgorithmStart = (): void => {
     console.log('(from header) sent request to start algorithm');
     this.nodeMapComponent.startAlgorithm();
-
-    this.algorithmButtonText = "Stop Algorithm";
-    this.algorithmButtonFunction = this.sendAlgorithmStop;
   }
 
   sendAlgorithmStop = (): void => {
     console.log('(from header) sent request to stop algorithm');
     this.nodeMapComponent.stopAlgorithm();
-    
-    this.algorithmButtonText = "Resume Algorithm";
-    this.algorithmButtonFunction = this.sendAlgorithmResume;
   }  
 
   sendAlgorithmResume = (): void => {
     console.log('(from header) sent request to resume algorithm');
     this.nodeMapComponent.resumeAlgorithm();
-
-    this.algorithmButtonText = "Stop Algorithm";
-    this.algorithmButtonFunction = this.sendAlgorithmStop;
   }
 
   sendDelayChange = (event: any): void => {
@@ -57,21 +44,9 @@ export class HeaderComponent implements OnInit {
     this.nodeMapComponent.changeAlgorithmService(newAlgorithm);
   }
 
-  // TEST FUNCTION
-  sendCompleteCycle = (): void => {
-    console.log('(from header) sent request to do complete execution');
+  sendInstaToggle = (): void => {
+    console.log('(from header) sent request to toggle instant vizualization.');
     
-    this.nodeMapComponent.doCompleteCycle();
-  }
-  
-  resetAlgorithmButton = () => {
-    this.algorithmButtonText = "Restart Algorithm";
-    this.algorithmButtonFunction = this.sendAlgorithmStart;
-  }
-
-  ngOnInit(): void {
-    this.algorithmButtonText = "Start Algorithm";
-    this.algorithmButtonFunction = this.sendAlgorithmStart;
-    this.algorithmDelay = 60;
+    this.nodeMapComponent.toggleInstantVisualization();
   }
 }
