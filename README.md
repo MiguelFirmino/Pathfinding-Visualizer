@@ -15,7 +15,7 @@ This application will soon be hosted online, a link will be provided on this pag
 
 ## 🚧 Work in progress! 🚧
 
-As of now(September 5, 2023), this project is being actively worked on, it's expected to see further implementations, bug fixes and improvements.
+As of now(September 7, 2023), this project is being actively worked on, it's expected to see further implementations, bug fixes and improvements.
 
 🚩 Done: 🚩
 - [x] implemented Dijkstra, A* and Depth First Search.
@@ -24,17 +24,15 @@ As of now(September 5, 2023), this project is being actively worked on, it's exp
 - [x] implemented map creation and clearing.
 - [x] implemented click/drag dynamic controlling.
 - [x] improved node animations.
+- [x] implemented instantaneous visualization:
+- [x] added better color palette to grid.
 
 🚩 To do: 🚩
 - [ ] add Bootstrap CSS:
   - [x] install in project.
-  - [ ] use to style map controller(header).
+  - [x] use to style map controller(header).
   - [ ] apply general typography.
   - [ ] add preview images! 📷
-- [ ] implement instantaneous visualization:
-  - [ ] add toggle button.
-  - [x] add manual button. 
-  - [x] reduce excessive animations while doing insta visualization.
 - [ ] figure out a way to modularize node-map-component.ts:
   - [x] created services for each algorithm.
 - [ ] improve page starting render:
