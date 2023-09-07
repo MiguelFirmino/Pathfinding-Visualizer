@@ -1,11 +1,11 @@
-<div class="container">
-    <div class="row">
+<div class="container-lg">
+    <div class="row d-none d-sm-flex py-2 py-lg-3 py-xl-4">
         <div class="col">
             <h2 class="text-center">Pathfinding Visualizer</h2>
         </div>
     </div>
     
-    <div class="row">
+    <div class="row pb-2">
       <div class="col">
         <button class="btn btn-primary col" (click)="algorithmButtonFunction()">
           {{ algorithmButtonText }}
@@ -36,9 +36,9 @@
       </div>
     
       <div class="col">
-        <label for="algorithmSelect">Algorithm</label>
+        <label for="algorithmSelect">Select an Algorithm</label>
         <select
-          class="form-select"
+          class="form-select-sm"
           (change)="sendAlgorithmChange($event)"
           id="algorithmSelect"
         >
@@ -49,34 +49,34 @@
       </div>
     </div>
     
-    <div class="row user-select-none">
-      <div class="col d-flex justify-content-around align-items-center">
-        <span ngClass="legend-item"></span>
-        <span>Blank</span>
+    <div class="row gx-0 gy-1  mx-5 d-none d-sm-flex py-1 user-select-none">
+      <div class="col-3 col-md d-flex justify-content-center align-items-center">
+        <span ngClass="legend-item" style="background-color: #fff;"></span>
+        <span class="px-1">Blank</span>
       </div>
-      <div class="col d-flex justify-content-around align-items-center">
+      <div class="col-3 col-md d-flex justify-content-center align-items-center">
         <span ngClass="legend-item" style="background-color: #444444"></span>
-        Blocked
+        <span class="px-1">Blocked</span>
       </div>
-      <div class="col d-flex justify-content-around align-items-center">
+      <div class="col-3 col-md d-flex justify-content-center align-items-center">
         <span ngClass="legend-item" style="background-color: #ffff00"></span>
-        Visited
+        <span class="px-1">Visited</span>
       </div>
-      <div class="col d-flex justify-content-around align-items-center">
+      <div class="col-3 col-md d-flex justify-content-center align-items-center">
         <span ngClass="legend-item" style="background-color: #75ff57"></span>
-        Prospected
+        <span class="px-1">Prospected</span>
       </div>
-      <div class="col d-flex justify-content-around align-items-center">
+      <div class="col-3 col-md d-flex justify-content-center align-items-center">
         <span ngClass="legend-item" style="background-color: #0000ff"></span>
-        Start
+        <span class="px-1">Start</span>
       </div>
-      <div class="col d-flex justify-content-around align-items-center">
+      <div class="col-3 col-md d-flex justify-content-center align-items-center">
         <span ngClass="legend-item" style="background-color: #ff0000"></span>
-        End
+        <span class="px-1">End</span>
       </div>
-      <div class="col d-flex justify-content-around align-items-center">
+      <div class="col-3 col-md d-flex justify-content-center align-items-center">
         <span ngClass="legend-item" style="background-color: #ffa500"></span>
-        Path
+        <span class="px-1">Path</span>
       </div>
     </div>
 </div>
