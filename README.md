@@ -25,7 +25,8 @@ To check out this app go to <a href="https://pathfinding-visualizer-two.vercel.a
 - [x] implemented instantaneous visualization:
 - [x] added better color palette to grid.
 - [x] deployed project to vercel!
-- [x] added footer. 
+- [x] added footer.
+- [x] added weights(nodes that are more costly to go through). 
 
 🚩 To do: 🚩
 - [ ] add Bootstrap CSS:
