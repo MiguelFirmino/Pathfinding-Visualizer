@@ -26,7 +26,8 @@ As of now(September 7, 2023), this project is being actively worked on, it's exp
 - [x] improved node animations.
 - [x] implemented instantaneous visualization:
 - [x] added better color palette to grid.
-- [x] deployed project to vercel! 
+- [x] deployed project to vercel!
+- [x] added footer. 
 
 🚩 To do: 🚩
 - [ ] add Bootstrap CSS:
@@ -39,8 +40,6 @@ As of now(September 7, 2023), this project is being actively worked on, it's exp
 - [ ] improve page starting render:
   - [ ] implement lazy rendering of node-map.
   - [ ] add routes and such(if needed).
-- [ ] add footer:
-  - [ ] add algorithm info section(iterations, time consumed).
 - improve readability of everything(it's never readable enough).
 - many more!
 
