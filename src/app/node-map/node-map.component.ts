@@ -53,11 +53,21 @@ export class NodeMapComponent implements OnInit {
     this.stopAlgorithm();
   };
 
-  receiveClickedNode = (node) => {
-    // console.log(
-    //   `Node at x: ${node.xPosition}, y: ${node.yPosition} has been clicked`
-    // );
-    console.log(this.nodeMap.indexOf(node));
+  receiveClickedNode = (event) => {
+    let node = event.node;
+
+    if (event.isRightClick) {
+      if (node.weight == 0) {
+        this.putWeightOnNode(node);
+        this.nodeFunction = this.putWeightOnNode;
+      } else {
+        this.removeWeightOnNode(node);
+        this.nodeFunction = this.removeWeightOnNode;
+      }
+
+      this.autoComplete();
+      return;
+    }
 
     // set node function depending on what kind of node was clicked
     if (node === this.startingNode) {
@@ -71,12 +81,27 @@ export class NodeMapComponent implements OnInit {
       this.unblockNode(node);
       this.nodeFunction = this.unblockNode;
     }
+
+    this.autoComplete();
   };
 
   receiveMovedNode = (node) => {
     // do function that was previously defined on mousedown
     this.nodeFunction(node);
+    this.autoComplete();
   };
+
+  putWeightOnNode = (node) => {
+    if (node != this.startingNode && node != this.endingNode) {
+      node.weight = 10;
+      node.isBlocked = false;
+    }
+  }
+
+  removeWeightOnNode = (node) => {
+    node.weight = 0;
+    node.isBlocked = false;
+  }
 
   blockNode = (node) => {
     if (
@@ -96,8 +121,6 @@ export class NodeMapComponent implements OnInit {
       );
       return;
     }
-
-    this.autoComplete();
   };
 
   unblockNode = (node) => {
@@ -109,7 +132,7 @@ export class NodeMapComponent implements OnInit {
       node.isBlocked = false;
     }
 
-    this.autoComplete();
+    this.removeWeightOnNode(node);
   };
 
   setStartingNode = (node) => {
@@ -130,8 +153,6 @@ export class NodeMapComponent implements OnInit {
       );
       return;
     }
-
-    this.autoComplete();
   };
 
   setEndingNode = (node) => {
@@ -151,8 +172,6 @@ export class NodeMapComponent implements OnInit {
       );
       return;
     }
-
-    this.autoComplete();
   };
 
   startAlgorithm = () => {

@@ -39,7 +39,7 @@ export class DijkstraService extends Pathfinder {
     let unvisitedNeighbours = this.getUnvisitedNeighbours(nodeToVisit);
 
     for (let { node: neighbour, relativeDistance } of unvisitedNeighbours) {
-      let potentialDistance = nodeToVisit.pathDistance + relativeDistance;
+      let potentialDistance = nodeToVisit.pathDistance + relativeDistance + neighbour.weight;
 
       if (neighbour.pathDistance > potentialDistance) {
         neighbour.pathDistance = potentialDistance;

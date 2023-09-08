@@ -41,7 +41,7 @@ export class AStarService extends Pathfinder{
     let unvisitedNeighbours = this.getUnvisitedNeighbours(nodeToVisit);
 
     for (let { node: neighbour, relativeDistance } of unvisitedNeighbours) {
-      let potentialDistance = nodeToVisit.pathDistance + relativeDistance;
+      let potentialDistance = nodeToVisit.pathDistance + relativeDistance + neighbour.weight;
       let heuristicDistance = Math.abs(neighbour.xPosition - this.endingNode.xPosition)
        + Math.abs(neighbour.yPosition - this.endingNode.yPosition);
 
