@@ -1,5 +1,5 @@
 <div class="container-lg">
-  <div class="row d-none d-sm-flex py-2 py-lg-3 py-xl-4">
+  <div class="row d-none d-sm-flex py-2 py-lg-3">
         <div class="col">
             <h2 class="text-center">Pathfinding Visualizer</h2>
         </div>
@@ -49,9 +49,9 @@
       </div>
     
       <div class="col">
-        <label for="algorithmSelect">Select an Algorithm</label>
+        <label class="col-12" for="algorithmSelect">Algorithm</label>
         <select
-          class="form-select-sm"
+          class="form-select-sm col-12"
           (change)="sendAlgorithmChange($event)"
           id="algorithmSelect"
           [disabled]="nodeMapComponent.isAlgorithmOperating"
@@ -63,14 +63,10 @@
       </div>
   </div>
 
-  <div class="row gx-0 gy-1  mx-5 d-none d-sm-flex py-1 user-select-none">
-      <div class="col-3 col-md d-flex justify-content-center align-items-center">
-        <span ngClass="legend-item" style="background-color: var(--blank-node-bg);"></span>
-        <span class="px-1">Blank</span>
-      </div>
+  <div class="row gx-0 gy-1  mx-5 d-none d-sm-flex user-select-none">
       <div class="col-3 col-md d-flex justify-content-center align-items-center">
         <span ngClass="legend-item" style="background-color: var(--blocked-node-bg)"></span>
-        <span class="px-1">Blocked</span>
+        <span class="px-1">Wall</span>
       </div>
       <div class="col-3 col-md d-flex justify-content-center align-items-center">
         <span ngClass="legend-item" style="background-color: var(--visited-node-bg)"></span>
@@ -94,3 +90,4 @@
       </div>
   </div>
 </div>
+<hr>

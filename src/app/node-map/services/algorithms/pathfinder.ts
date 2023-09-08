@@ -40,7 +40,7 @@ export class Pathfinder {
     }
   }
 
-  tracePath = (nodeToTrace: Node) => {
+  getPath = (nodeToTrace: Node): Node[] => {
     let pathNodes = [];
 
     while (nodeToTrace.parent) {
