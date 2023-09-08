@@ -1,12 +1,12 @@
 # Pathfinding Visualizer🏴
 
 A pathfinding algorithm visualizer built on Angular. With this project, my goal is to majorly improve my skills and knowledge on Angular. 
-Not only that, but I aim to completely overhaul my former <a href="https://github.com/MiguelFirmino/Dijkstra-Visualizer/tree/master" target="_blank">Dijkstra Visualizer</a> 
+Not only that, but I aim to completely overhaul my former <a href="github.com/MiguelFirmino/Dijkstra-Visualizer/tree/master">Dijkstra Visualizer</a> 
 project to a better, optimized, more professional version by applying Angular's powerful tools.
 
 ## Instructions📜
 
-To check out this app go to <a href="https://pathfinding-visualizer-two.vercel.app/" target="_blank">Pathfinding Visualizer</a>.
+To check out this app go to <a href="https://pathfinding-visualizer-two.vercel.app/">Pathfinding Visualizer</a>.
 
 1) Control the grid by clicking and dragging on it.
 2) Press the buttons on the header to visualize the chosen algorithm.
