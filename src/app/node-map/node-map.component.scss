@@ -16,8 +16,8 @@
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    --parent-width: calc(1.12vw * var(--map-width));
-    --parent-height: calc(1.12vw * var(--map-height));
+    --parent-width: calc(1.1vw * var(--map-width));
+    --parent-height: calc(1.1vw * var(--map-height));
     width: var(--parent-width);
     height: var(--parent-height);
 }

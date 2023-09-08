@@ -5,13 +5,15 @@ import { AppComponent } from './app.component';
 import { NodeMapComponent } from './node-map/node-map.component';
 import { NodeComponent } from './node/node.component';
 import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NodeMapComponent,
     NodeComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

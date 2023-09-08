@@ -24,7 +24,6 @@ export class NodeMapComponent implements OnInit {
     private depthFirstSearchService: DepthFirstSearchService
     ) {}
 
-  message: string = '';
   isAnimated: boolean;
   mapWidth: number;
   mapHeight: number;
@@ -36,7 +35,7 @@ export class NodeMapComponent implements OnInit {
   isAlgorithmOperating: boolean;
   algorithmDelay: number;
   algorithmInterval: any;
-  algorithmService: any;
+  algorithmService: DijkstraService | AStarService | DepthFirstSearchService;
   pathAnimationInterval: any;
   isInstaOn: boolean;
 
@@ -158,6 +157,7 @@ export class NodeMapComponent implements OnInit {
 
   startAlgorithm = () => {
     this.isAnimated = true;
+    this.isInstaOn = false;
     this.clearMap();
     this.algorithmService.setAlgorithmValues(
       this.startingNode,
@@ -182,10 +182,6 @@ export class NodeMapComponent implements OnInit {
 
   doAlgorithmIteration = () => {
     this.algorithmService.doIteration();
-    
-    // trace path to node being visited
-    let currentNode = this.algorithmService.currentNode;
-    // this.nodePath = this.algorithmService.tracePath(currentNode);
 
     let { isDone, reason } = this.algorithmService.checkIfDone();
 
@@ -193,14 +189,13 @@ export class NodeMapComponent implements OnInit {
       this.stopAlgorithm();
 
       if (reason == 'reached end') {
-        // this.message = `Reached End Node after ${this.aStarService.iterationCount} steps`;
         console.log(
           `Reached End Node after ${this.algorithmService.iterationCount} steps`
         );
-        let path = this.algorithmService.tracePath(currentNode);
+        let currentNode = this.algorithmService.currentNode;
+        let path = this.algorithmService.getPath(currentNode);
         this.animatePath(path);
       } else {
-        // this.message = `No solution available after ${this.aStarService.iterationCount} steps`;
         console.log(
           `No solution available after ${this.algorithmService.iterationCount} steps`
         );
@@ -222,6 +217,9 @@ export class NodeMapComponent implements OnInit {
       `(from node-map) %cchanged algorithm to ${newAlgorithm}`,
       'color: lightgreen'
     );
+    
+    // reset previous service before changing
+    this.algorithmService.setAlgorithmValues(this.startingNode, this.endingNode);
     switch (newAlgorithm) {
       case 'dijkstra':
         this.algorithmService = this.dijkstraService;
@@ -249,7 +247,6 @@ export class NodeMapComponent implements OnInit {
     }
   }
 
-  // MAKE THIS MORE READABLE
   doCompleteCycle = () => {
     // disable animations to prevent information cluster
     this.isAnimated = false;
@@ -264,16 +261,16 @@ export class NodeMapComponent implements OnInit {
     this.algorithmService.doCompleteCycle();
 
     if (this.algorithmService.checkIfDone().reason != 'no solution') {
-      let path = this.algorithmService.tracePath(this.algorithmService.currentNode);
-      // this.animatePath(path);
+      let path = this.algorithmService.getPath(this.algorithmService.currentNode);
       this.nodePath = path;
     }
   };
 
-  animatePath = (path: []) => {
+  // appends nodes to path in an animated matter
+  animatePath = (path: Node[]) => {
     let animationDelay = 2000 / path.length ** 2;
 
-    // from start to finish
+    // from start to end
     this.pathAnimationInterval = setInterval(() => {
       if (path.length > 0) {
         this.nodePath.push(path.pop())
@@ -282,7 +279,7 @@ export class NodeMapComponent implements OnInit {
       }
     }, animationDelay);
 
-    // from finish to start
+    // from end to start
     // this.pathAnimationInterval = setInterval(() => {
     //   if (path.length > 0) {
     //     this.nodePath.push(path.pop())
@@ -291,7 +288,7 @@ export class NodeMapComponent implements OnInit {
     //   }
     // }, 20);
 
-    // random selection
+    // random
     // this.pathAnimationInterval = setInterval(() => {
     //   if (path.length > 0) {
     //     let randomIndex = Math.floor(Math.random()*path.length);
@@ -313,8 +310,8 @@ export class NodeMapComponent implements OnInit {
       this.mapHeight
     );
 
-    this.startingNode = this.nodeMap[30]; // 854
-    this.endingNode = this.nodeMap[60]; // 885
+    this.startingNode = this.nodeMap[854]; // 854
+    this.endingNode = this.nodeMap[885]; // 885
     this.nodePath = [];
     this.isAlgorithmOperating = false;
     this.algorithmDelay = 50; // 50
