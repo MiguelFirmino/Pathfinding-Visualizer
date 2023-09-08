@@ -26,6 +26,7 @@ As of now(September 7, 2023), this project is being actively worked on, it's exp
 - [x] improved node animations.
 - [x] implemented instantaneous visualization:
 - [x] added better color palette to grid.
+- [x] deployed project to vercel! 
 
 🚩 To do: 🚩
 - [ ] add Bootstrap CSS:
@@ -40,13 +41,14 @@ As of now(September 7, 2023), this project is being actively worked on, it's exp
   - [ ] add routes and such(if needed).
 - [ ] add footer:
   - [ ] add algorithm info section(iterations, time consumed).
-- [ ] improve readability of everything(it's never readable enough).
+- improve readability of everything(it's never readable enough).
 - many more!
 
 🚩 Maybe: 🚩
 - [ ] implement simultaneous algorithm comparing!
 - [ ] add pop-ups with info about the algorithm.
 - [ ] add bidirectional swarm algorithm.
+- [ ] make app mobile friendly!
 
 ## Concepts Applied🏴
 
