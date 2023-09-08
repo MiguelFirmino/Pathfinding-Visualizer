@@ -1,5 +1,6 @@
 <span (mouseenter)="sendMovednode($event); false" 
-(mousedown)="sendClickedNode()" 
+(mousedown)="sendClickedNode($event)" 
+(contextmenu)="false"
 [ngStyle]="{'display' : 'block','height' : '100%', 'width' : '100%'}">
     
 </span>

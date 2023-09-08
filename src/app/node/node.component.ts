@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Node } from './node';
 
 @Component({
@@ -9,19 +9,27 @@ import { Node } from './node';
 export class NodeComponent {
   @Input() node: Node;
 
-  @Output() nodeClickEvent = new EventEmitter<Node>;
+  @Output() nodeClickEvent = new EventEmitter<{ node: Node, isRightClick: boolean }>;
   @Output() nodeMoveEvent = new EventEmitter<Node>;
 
-  constructor(private detector: ChangeDetectorRef) {}
-
-  sendClickedNode = () => {
-    this.nodeClickEvent.emit(this.node);
+  sendClickedNode = (event) => {
+    if (event.buttons === 1) {
+      this.nodeClickEvent.emit({
+        node: this.node,
+        isRightClick: false
+      });
+    } else if (event.buttons === 2) {
+      this.nodeClickEvent.emit({
+        node: this.node,
+        isRightClick: true
+      });
+    }
   }
 
   sendMovednode = (event) => {
     event.stopPropagation();
-    if (event.buttons === 1) {
-      console.log(`mouse moved over node at x: ${this.node.xPosition}, y: ${this.node.yPosition}`);
+    
+    if (event.buttons === 1 || event.buttons === 2) {
       this.nodeMoveEvent.emit(this.node);
     }
   }

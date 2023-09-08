@@ -101,6 +101,11 @@
     }
 }
 
+.node-map .weighted {
+    background-image: var(--weighted-node-bg);
+    background-size: cover;
+}
+
 .node-map .start-node {
     background-color: var(--start-node-bg);
     animation: startNodeAnim 0.15s;

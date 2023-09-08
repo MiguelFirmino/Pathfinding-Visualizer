@@ -9,6 +9,7 @@
     [ngClass]="{
         'node': true, 
         'blocked' : node.isBlocked,
+        'weighted' : node.weight > 0,
         'path-node' : nodePath.includes(node),
         'prospected' : node.isProspected,
         'visited' : node.isVisited,

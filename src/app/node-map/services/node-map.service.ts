@@ -71,7 +71,7 @@ export class NodeMapService {
 
     for (let xCoord = 0; xCoord < width; xCoord++) {
       let newNode: Node = {
-        weight: 1,
+        weight: 0,
         parent: undefined,
         pathDistance: Infinity,
         heuristicDistance: Infinity,
