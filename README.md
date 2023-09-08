@@ -39,6 +39,7 @@ To check out this app go to <a href="https://pathfinding-visualizer-two.vercel.a
 - [ ] improve page starting render:
   - [ ] implement lazy rendering of node-map.
   - [ ] add routes and such(if needed).
+- [ ]  add in-app instructions
 - improve readability of everything(it's never readable enough).
 - many more!
 
