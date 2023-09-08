@@ -6,12 +6,12 @@ project to a better, optimized, more professional version by applying Angular's 
 
 ## Instructions📜
 
-This application will soon be hosted online, a link will be provided on this page when so. But meanwhile, follow these instructions and test this application:
+To check out this app go to <a href="https://pathfinding-visualizer-two.vercel.app/">Pathfinding Visualizer</a>.
 
-1) Download or clone this repository.
-2) Open the main folder on command prompt and type: "ng serve".
-3) Enter "localhost:4200" or wherever it's being hosted on your browser.
-4) Control the grid by clicking/dragging on it.
+1) Control the grid by clicking and dragging on it.
+2) Press the buttons on the header to visualize the chosen algorithm.
+3) Adjust the algorithm delay if needed(the more delay the slower the algorithm will run).
+4) Have fun!
 
 ## 🚧 Work in progress! 🚧
 
