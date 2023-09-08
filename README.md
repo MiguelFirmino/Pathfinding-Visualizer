@@ -15,8 +15,6 @@ To check out this app go to <a href="https://pathfinding-visualizer-two.vercel.a
 
 ## 🚧 Work in progress! 🚧
 
-As of now(September 7, 2023), this project is being actively worked on, it's expected to see further implementations, bug fixes and improvements.
-
 🚩 Done: 🚩
 - [x] implemented Dijkstra, A* and Depth First Search.
 - [x] implemented dynamic map controlling.
