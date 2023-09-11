@@ -51,14 +51,16 @@
       <div class="col">
         <label class="col-12" for="algorithmSelect">Algorithm</label>
         <select
-          class="form-select-sm col-12"
+          class="form-select-sm multiple-task col-12"
           (change)="sendAlgorithmChange($event)"
           id="algorithmSelect"
           [disabled]="nodeMapComponent.isAlgorithmOperating"
         >
           <option value="dijkstra" selected>Dijkstra</option>
-          <option value="a-star">A*</option>
           <option value="depth-first-search">Depth First Search</option>
+          <option value="a-star-1">A* (40%)</option>
+          <option value="a-star-2">A* (60%)</option>
+          <option value="a-star-3">A* (80%)</option>
         </select>
       </div>
   </div>
