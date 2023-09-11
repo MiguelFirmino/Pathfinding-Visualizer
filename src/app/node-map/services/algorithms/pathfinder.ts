@@ -8,6 +8,7 @@ export class Pathfinder {
   currentNode: Node;
   iterationCount: number = 0;
   doIteration: any;
+  heuristicWeight : number = 0;
 
   setAlgorithmValues(start: Node, end: Node) {
     this.startingNode = start;

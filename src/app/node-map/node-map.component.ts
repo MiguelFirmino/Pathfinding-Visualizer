@@ -243,8 +243,17 @@ export class NodeMapComponent implements OnInit {
       case 'dijkstra':
         this.algorithmService = this.dijkstraService;
         break;
-      case 'a-star':
+      case 'a-star-1':
         this.algorithmService = this.aStartService;
+        this.algorithmService.heuristicWeight = 0.4;
+        break;
+      case 'a-star-2':
+        this.algorithmService = this.aStartService;
+        this.algorithmService.heuristicWeight = 0.6;
+        break;
+      case 'a-star-3':
+        this.algorithmService = this.aStartService;
+        this.algorithmService.heuristicWeight = 0.8;
         break;
       case 'depth-first-search':
         this.algorithmService = this.depthFirstSearchService;
@@ -297,26 +306,6 @@ export class NodeMapComponent implements OnInit {
         clearInterval(this.pathAnimationInterval);
       }
     }, animationDelay);
-
-    // from end to start
-    // this.pathAnimationInterval = setInterval(() => {
-    //   if (path.length > 0) {
-    //     this.nodePath.push(path.pop())
-    //   } else {
-    //     clearInterval(this.pathAnimationInterval);
-    //   }
-    // }, 20);
-
-    // random
-    // this.pathAnimationInterval = setInterval(() => {
-    //   if (path.length > 0) {
-    //     let randomIndex = Math.floor(Math.random()*path.length);
-    //     this.nodePath.push(path[randomIndex]);
-    //     path.splice(randomIndex, 1);
-    //   } else {
-    //     clearInterval(this.pathAnimationInterval);
-    //   }
-    // }, 20);
   }
 
   // default parameters
