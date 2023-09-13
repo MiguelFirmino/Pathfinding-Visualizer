@@ -26,22 +26,14 @@ To check out this app go to <a href="https://pathfinding-visualizer-two.vercel.a
 - [x] added better color palette to grid.
 - [x] deployed project to vercel!
 - [x] added footer.
-- [x] added weights(nodes that are more costly to go through). 
+- [x] added weights(nodes that are more costly to go through).
+- [x] add Bootstrap CSS.
 
 🚩 To do: 🚩
-- [ ] add Bootstrap CSS:
-  - [x] install in project.
-  - [x] use to style map controller(header).
-  - [ ] apply general typography.
-  - [ ] add preview images! 📷
 - [ ] figure out a way to modularize node-map-component.ts:
   - [x] created services for each algorithm.
-- [ ] improve page starting render:
-  - [ ] implement lazy rendering of node-map.
-  - [ ] add routes and such(if needed).
-- [ ]  add in-app instructions
+- [ ]  add in-app instructions.
 - improve readability of everything(it's never readable enough).
-- many more!
 
 🚩 Maybe: 🚩
 - [ ] implement simultaneous algorithm comparing!
