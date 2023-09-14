@@ -1,9 +1,8 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
-import { NodeMapService } from './services/node-map.service';
-import { DijkstraService } from './services/algorithms/dijkstra.service';
-import { AStarService } from './services/algorithms/a-star.service';
-import { DepthFirstSearchService } from './services/algorithms/depth-first-search.service';
-import { HeaderComponent } from '../header/header.component';
+import { NodeMapService } from '../services/node-map.service';
+import { DijkstraService } from '../services/algorithms/dijkstra.service';
+import { AStarService } from '../services/algorithms/a-star.service';
+import { DepthFirstSearchService } from '../services/algorithms/depth-first-search.service';
 import { Node } from '../node/node';
 
 @Component({
