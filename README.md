@@ -41,6 +41,12 @@ To check out this app go to <a href="https://pathfinding-visualizer-two.vercel.a
 - [ ] add bidirectional swarm algorithm.
 - [ ] make app mobile friendly!
 
+## Preview🏳️
+
+Here can be seen the process behind finding the best path for an A* Algorithm with 0.8 weight.
+
+<img src="github-images/pathfinder-image.png"> </img>
+
 ## Concepts Applied🏴
 
 - Angular's Property Binding.
